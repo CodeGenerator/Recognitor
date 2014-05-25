@@ -1,0 +1,7 @@
+Build
+Recognitor.xcodeproj/*.mode1v3
+Recognitor.xcodeproj/*.pbxuser
+Recognitor.xcodeproj/*.perspectivev3
+Recognitor.xcodeproj/xcuserdata/
+Recognitor.xcodeproj/project.xcworkspace/
+*.xcuserstate

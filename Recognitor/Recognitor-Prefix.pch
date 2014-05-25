@@ -13,4 +13,6 @@
 #ifdef __OBJC__
   #import <UIKit/UIKit.h>
   #import <Foundation/Foundation.h>
+
+  #define NOT_IMPLEMENTED NSAssert1(nil, @"Not implemented yet %s!", __PRETTY_FUNCTION__);
 #endif

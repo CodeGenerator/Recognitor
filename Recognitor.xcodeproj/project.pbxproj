@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		254A9EE51930E2EE0064938F /* RVFeedbackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 254A9EE41930E2EE0064938F /* RVFeedbackViewController.m */; };
+		254A9EE81930E3130064938F /* RVFeedbackViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 254A9EE71930E3130064938F /* RVFeedbackViewModel.m */; };
+		254A9EEB1930E47C0064938F /* RVBackend.m in Sources */ = {isa = PBXBuildFile; fileRef = 254A9EEA1930E47C0064938F /* RVBackend.m */; };
 		25A0162C192E8AE100A9486C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 25A0162B192E8AE100A9486C /* Foundation.framework */; };
 		25A0162E192E8AE100A9486C /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 25A0162D192E8AE100A9486C /* CoreGraphics.framework */; };
 		25A01630192E8AE100A9486C /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 25A0162F192E8AE100A9486C /* UIKit.framework */; };
@@ -19,6 +22,12 @@
 		25A01647192E8AE100A9486C /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 25A0162F192E8AE100A9486C /* UIKit.framework */; };
 		25A0164F192E8AE100A9486C /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 25A0164D192E8AE100A9486C /* InfoPlist.strings */; };
 		25A01651192E8AE100A9486C /* RecognitorTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 25A01650192E8AE100A9486C /* RecognitorTests.m */; };
+		25A01662192FC9CB00A9486C /* RVViewFinderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 25A01661192FC9CB00A9486C /* RVViewFinderViewController.m */; };
+		25A01665192FCA5000A9486C /* RVViewFinderViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 25A01664192FCA5000A9486C /* RVViewFinderViewModel.m */; };
+		25A01667192FCEC900A9486C /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 25A01666192FCEC900A9486C /* AVFoundation.framework */; };
+		25A01669192FE11000A9486C /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 25A01668192FE11000A9486C /* QuartzCore.framework */; };
+		25A0166C192FF4ED00A9486C /* RVSendActionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 25A0166B192FF4ED00A9486C /* RVSendActionViewController.m */; };
+		25A0166F192FF58400A9486C /* RVSendActionViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 25A0166E192FF58400A9486C /* RVSendActionViewModel.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -32,6 +41,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		254A9EE31930E2EE0064938F /* RVFeedbackViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RVFeedbackViewController.h; sourceTree = "<group>"; };
+		254A9EE41930E2EE0064938F /* RVFeedbackViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RVFeedbackViewController.m; sourceTree = "<group>"; };
+		254A9EE61930E3130064938F /* RVFeedbackViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RVFeedbackViewModel.h; sourceTree = "<group>"; };
+		254A9EE71930E3130064938F /* RVFeedbackViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RVFeedbackViewModel.m; sourceTree = "<group>"; };
+		254A9EE91930E47C0064938F /* RVBackend.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RVBackend.h; sourceTree = "<group>"; };
+		254A9EEA1930E47C0064938F /* RVBackend.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RVBackend.m; sourceTree = "<group>"; };
 		25A01628192E8AE100A9486C /* Recognitor.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Recognitor.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		25A0162B192E8AE100A9486C /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		25A0162D192E8AE100A9486C /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -48,6 +63,16 @@
 		25A0164C192E8AE100A9486C /* RecognitorTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "RecognitorTests-Info.plist"; sourceTree = "<group>"; };
 		25A0164E192E8AE100A9486C /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		25A01650192E8AE100A9486C /* RecognitorTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RecognitorTests.m; sourceTree = "<group>"; };
+		25A01660192FC9CB00A9486C /* RVViewFinderViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RVViewFinderViewController.h; sourceTree = "<group>"; };
+		25A01661192FC9CB00A9486C /* RVViewFinderViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RVViewFinderViewController.m; sourceTree = "<group>"; };
+		25A01663192FCA5000A9486C /* RVViewFinderViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RVViewFinderViewModel.h; sourceTree = "<group>"; };
+		25A01664192FCA5000A9486C /* RVViewFinderViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RVViewFinderViewModel.m; sourceTree = "<group>"; };
+		25A01666192FCEC900A9486C /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		25A01668192FE11000A9486C /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		25A0166A192FF4ED00A9486C /* RVSendActionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RVSendActionViewController.h; sourceTree = "<group>"; };
+		25A0166B192FF4ED00A9486C /* RVSendActionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RVSendActionViewController.m; sourceTree = "<group>"; };
+		25A0166D192FF58400A9486C /* RVSendActionViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RVSendActionViewModel.h; sourceTree = "<group>"; };
+		25A0166E192FF58400A9486C /* RVSendActionViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RVSendActionViewModel.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -55,6 +80,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				25A01669192FE11000A9486C /* QuartzCore.framework in Frameworks */,
+				25A01667192FCEC900A9486C /* AVFoundation.framework in Frameworks */,
 				25A0162E192E8AE100A9486C /* CoreGraphics.framework in Frameworks */,
 				25A01630192E8AE100A9486C /* UIKit.framework in Frameworks */,
 				25A0162C192E8AE100A9486C /* Foundation.framework in Frameworks */,
@@ -96,6 +123,8 @@
 		25A0162A192E8AE100A9486C /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				25A01668192FE11000A9486C /* QuartzCore.framework */,
+				25A01666192FCEC900A9486C /* AVFoundation.framework */,
 				25A0162B192E8AE100A9486C /* Foundation.framework */,
 				25A0162D192E8AE100A9486C /* CoreGraphics.framework */,
 				25A0162F192E8AE100A9486C /* UIKit.framework */,
@@ -109,6 +138,20 @@
 			children = (
 				25A0163A192E8AE100A9486C /* RVAppDelegate.h */,
 				25A0163B192E8AE100A9486C /* RVAppDelegate.m */,
+				25A01660192FC9CB00A9486C /* RVViewFinderViewController.h */,
+				25A01661192FC9CB00A9486C /* RVViewFinderViewController.m */,
+				25A01663192FCA5000A9486C /* RVViewFinderViewModel.h */,
+				25A01664192FCA5000A9486C /* RVViewFinderViewModel.m */,
+				25A0166A192FF4ED00A9486C /* RVSendActionViewController.h */,
+				25A0166B192FF4ED00A9486C /* RVSendActionViewController.m */,
+				25A0166D192FF58400A9486C /* RVSendActionViewModel.h */,
+				25A0166E192FF58400A9486C /* RVSendActionViewModel.m */,
+				254A9EE31930E2EE0064938F /* RVFeedbackViewController.h */,
+				254A9EE41930E2EE0064938F /* RVFeedbackViewController.m */,
+				254A9EE61930E3130064938F /* RVFeedbackViewModel.h */,
+				254A9EE71930E3130064938F /* RVFeedbackViewModel.m */,
+				254A9EE91930E47C0064938F /* RVBackend.h */,
+				254A9EEA1930E47C0064938F /* RVBackend.m */,
 				25A0163D192E8AE100A9486C /* Images.xcassets */,
 				25A01632192E8AE100A9486C /* Supporting Files */,
 			);
@@ -241,7 +284,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				25A0163C192E8AE100A9486C /* RVAppDelegate.m in Sources */,
+				254A9EE81930E3130064938F /* RVFeedbackViewModel.m in Sources */,
+				254A9EE51930E2EE0064938F /* RVFeedbackViewController.m in Sources */,
+				25A01665192FCA5000A9486C /* RVViewFinderViewModel.m in Sources */,
+				254A9EEB1930E47C0064938F /* RVBackend.m in Sources */,
+				25A0166F192FF58400A9486C /* RVSendActionViewModel.m in Sources */,
 				25A01638192E8AE100A9486C /* main.m in Sources */,
+				25A01662192FC9CB00A9486C /* RVViewFinderViewController.m in Sources */,
+				25A0166C192FF4ED00A9486C /* RVSendActionViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -361,6 +411,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Recognitor/Recognitor-Prefix.pch";
 				INFOPLIST_FILE = "Recognitor/Recognitor-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -374,6 +425,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Recognitor/Recognitor-Prefix.pch";
 				INFOPLIST_FILE = "Recognitor/Recognitor-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -438,6 +490,7 @@
 				25A01656192E8AE100A9486C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		25A01657192E8AE100A9486C /* Build configuration list for PBXNativeTarget "RecognitorTests" */ = {
 			isa = XCConfigurationList;
@@ -446,6 +499,7 @@
 				25A01659192E8AE100A9486C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
