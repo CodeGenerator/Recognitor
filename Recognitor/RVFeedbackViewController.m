@@ -9,10 +9,15 @@
 #import "RVFeedbackViewController.h"
 #import "RVFeedbackViewModel.h"
 
+
+static NSString *const kBlamePattern = @"Обозвали раз: %u";
+
+
 @interface RVFeedbackViewController () <UITextFieldDelegate, RVFeedbackModelDelegate>
 
 @property (nonatomic, strong) RVFeedbackViewModel *viewModel;
 @property (nonatomic, strong) UIImageView *previewView;
+@property (nonatomic, strong) UIActivityIndicatorView *indicatorView;
 @property (nonatomic, strong) UITextField *plateNumberView;
 @property (nonatomic, strong) UILabel *blameCounterLabel;
 
@@ -34,7 +39,7 @@
     UIBarButtonItem *leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Отмена"
                                                                           style:UIBarButtonItemStylePlain
                                                                          target:self
-                                                                         action:@selector(cancelSwearing)];
+                                                                         action:@selector(endSwearing)];
     self.navigationItem.leftBarButtonItem = leftBarButtonItem;
     
     UIBarButtonItem *rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Мудак"
@@ -42,6 +47,7 @@
                                                                           target:self
                                                                           action:@selector(swear)];
     self.navigationItem.rightBarButtonItem = rightBarButtonItem;
+    self.navigationItem.title = @"Комментарий";
   }
   
   return self;
@@ -58,7 +64,7 @@
   [self configureBlameCounterLabel];
 }
 
-- (void)cancelSwearing
+- (void)endSwearing
 {
   [self dismissViewControllerAnimated:YES completion:nil];
 }
@@ -91,6 +97,11 @@
   self.previewView.frame = imageFrame;
   [self.view addSubview:self.previewView];
   
+  self.indicatorView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
+  [self.indicatorView sizeToFit];
+  self.indicatorView.center = CGPointMake(self.previewView.bounds.size.width / 2,
+                                          self.previewView.bounds.size.height / 2);
+  [self.previewView addSubview:self.indicatorView];
 }
 
 - (void)configurePlateTextField
@@ -132,7 +143,6 @@
 
 - (void)configureBlameCounterLabel
 {
-  NSString *const kBlamePattern = @"Уже обозвали раз: %d";
   const CGFloat kTopGap = 30.0f;
   
   self.blameCounterLabel = [UILabel new];
@@ -145,7 +155,7 @@
                                             kTopGap,
                                             self.previewView.bounds.size.width,
                                             self.blameCounterLabel.bounds.size.height);
-  self.blameCounterLabel.alpha = 0.0f;
+  self.blameCounterLabel.hidden = YES;
   [self.view addSubview:self.blameCounterLabel];
 }
 
@@ -169,18 +179,42 @@
 
 - (void)viewModelDidStartSwearingProcess:(RVFeedbackViewModel *)viewModel
 {
+  [self.indicatorView startAnimating];
+  
   self.navigationItem.leftBarButtonItem.enabled = NO;
   self.navigationItem.rightBarButtonItem.enabled = NO;
+  self.blameCounterLabel.hidden = YES;
 }
 
 - (void)viewModelDidFinishSwearingProcess:(RVFeedbackViewModel *)viewModel
 {
+  if (self.viewModel.statisticsIsAvailable) {
+    self.blameCounterLabel.text = [NSString stringWithFormat:kBlamePattern, self.viewModel.blameCounter];
+    self.blameCounterLabel.hidden = NO;
+  }
   
+  [self.indicatorView stopAnimating];
+  
+  self.navigationItem.leftBarButtonItem = nil;
+  self.navigationItem.hidesBackButton = YES;
+  self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"ОК"
+                                                                            style:UIBarButtonItemStyleDone
+                                                                           target:self
+                                                                           action:@selector(endSwearing)];
 }
 
 - (void)viewModel:(RVFeedbackViewModel *)viewModel didReceiveError:(NSError *)error
 {
+  [self.indicatorView stopAnimating];
   
+  self.navigationItem.leftBarButtonItem.enabled = YES;
+  self.navigationItem.rightBarButtonItem.enabled = YES;
+  UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Ошибка"
+                                                      message:error.localizedDescription
+                                                     delegate:nil
+                                            cancelButtonTitle:@"OK"
+                                            otherButtonTitles: nil];
+  [alertView show];
 }
 
 

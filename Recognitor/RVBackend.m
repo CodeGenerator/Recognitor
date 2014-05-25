@@ -93,6 +93,7 @@
     NSURL *blameURL = [NSURL URLWithString:kBlameBackendURL];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:blameURL];
     request.HTTPMethod = @"POST";
+    request.HTTPBody = [plateNumber dataUsingEncoding:NSUTF8StringEncoding];
     NSURLSessionDataTask *blameTask = [self.session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
       dispatch_async(dispatch_get_main_queue(), ^{
         if (completion != nil) {

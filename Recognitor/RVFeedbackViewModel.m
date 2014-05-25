@@ -7,6 +7,7 @@
 //
 
 #import "RVFeedbackViewModel.h"
+#import "RVBackend.h"
 
 
 @interface RVFeedbackViewModel ()
@@ -37,9 +38,39 @@
   return self;
 }
 
+- (NSError *)invalidNumberError
+{
+  NSError *error = [NSError errorWithDomain:@"RVFeedbackViewModel"
+                                       code:0
+                                   userInfo:@{NSLocalizedDescriptionKey : @"Неверный формат номера"}];
+  return error;
+}
+
 - (void)swearActionWithPlateNumber:(NSString *)plateNumber
 {
+  self.statisticsIsAvailable = NO;
   [self.delegate viewModelDidStartSwearingProcess:self];
+  if (![[RVBackend sharedInstance] isValidPlateNumber:plateNumber]) {
+    
+    [self.delegate viewModel:self didReceiveError:[self invalidNumberError]];
+    return;
+  }
+  
+  [[RVBackend sharedInstance] blamePlateNumber:plateNumber completion:^(NSError *error) {
+    if (error != nil) {
+      [self.delegate viewModel:self didReceiveError:error];
+      return;
+    }
+    
+    [[RVBackend sharedInstance] blameStatisticsForPlateNumber:plateNumber completion:^(NSUInteger blameCounter, NSError *error) {
+      if (error == nil) {
+        self.statisticsIsAvailable = YES;
+        self.blameCounter = blameCounter;
+      }
+      
+      [self.delegate viewModelDidFinishSwearingProcess:self];
+    }];
+  }];
 }
 
 @end
