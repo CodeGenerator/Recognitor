@@ -11,6 +11,7 @@
 
 
 static NSString *const kBlamePattern = @"Обозвали раз: %u";
+static CGFloat kElementsShiftForKeyboardAppearence = 100.0f;
 
 
 @interface RVFeedbackViewController () <UITextFieldDelegate, RVFeedbackModelDelegate>
@@ -18,6 +19,7 @@ static NSString *const kBlamePattern = @"Обозвали раз: %u";
 @property (nonatomic, strong) RVFeedbackViewModel *viewModel;
 @property (nonatomic, strong) UIImageView *previewView;
 @property (nonatomic, strong) UIActivityIndicatorView *indicatorView;
+@property (nonatomic, strong) UILabel *plateTextLabel;
 @property (nonatomic, strong) UITextField *plateNumberView;
 @property (nonatomic, strong) UILabel *blameCounterLabel;
 
@@ -62,6 +64,45 @@ static NSString *const kBlamePattern = @"Обозвали раз: %u";
   [self configurePreviewView];
   [self configurePlateTextField];
   [self configureBlameCounterLabel];
+  
+  UITapGestureRecognizer *tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self
+                                                                                  action:@selector(viewWasTapped:)];
+  [self.view addGestureRecognizer:tapRecognizer];
+}
+
+- (void)viewWasTapped:(UITapGestureRecognizer *)recognizer
+{
+  [self.plateNumberView resignFirstResponder];
+}
+
+- (void)layoutElementsForKeyboardNotification:(NSNotification *)notification
+                                       offset:(CGFloat)offset
+{
+  NSDictionary *userInfo = notification.userInfo;
+  
+  NSNumber *duration = userInfo[UIKeyboardAnimationDurationUserInfoKey];
+  NSNumber *curve = userInfo[UIKeyboardAnimationCurveUserInfoKey];
+  
+  [UIView animateKeyframesWithDuration:[duration doubleValue] delay:0.0 options:UIViewAnimationOptionBeginFromCurrentState|[curve integerValue] animations:^{
+    self.previewView.center = CGPointMake(self.previewView.center.x,
+                                          self.previewView.center.y + offset);
+    self.plateTextLabel.center = CGPointMake(self.plateTextLabel.center.x,
+                                             self.plateTextLabel.center.y + offset);
+    self.plateNumberView.center = CGPointMake(self.plateNumberView.center.x,
+                                              self.plateNumberView.center.y + offset);
+  } completion:nil];
+  
+  
+}
+
+- (void)keyboardWillShow:(NSNotification *)notification
+{
+  [self layoutElementsForKeyboardNotification:notification offset:-kElementsShiftForKeyboardAppearence];
+}
+
+- (void)keyboardWillHide:(NSNotification *)notification
+{
+  [self layoutElementsForKeyboardNotification:notification offset:kElementsShiftForKeyboardAppearence];
 }
 
 - (void)endSwearing
@@ -109,25 +150,25 @@ static NSString *const kBlamePattern = @"Обозвали раз: %u";
   const CGFloat kPlateLabelTopMargin = 20.0f;
   const CGFloat kPlateTextFieldLeftGap = 20.0f;
   
-  UILabel *plateTextLabel = [UILabel new];
-  plateTextLabel.font = [UIFont systemFontOfSize:24.0f];
-  plateTextLabel.text = @"Номер:";
-  plateTextLabel.textColor = [UIColor blackColor];
-  [plateTextLabel sizeToFit];
-  plateTextLabel.center = CGPointMake(self.previewView.frame.origin.x + plateTextLabel.bounds.size.width / 2,
+  self.plateTextLabel = [UILabel new];
+  self.plateTextLabel.font = [UIFont systemFontOfSize:24.0f];
+  self.plateTextLabel.text = @"Номер:";
+  self.plateTextLabel.textColor = [UIColor blackColor];
+  [self.plateTextLabel sizeToFit];
+  self.plateTextLabel.center = CGPointMake(self.previewView.frame.origin.x + self.plateTextLabel.bounds.size.width / 2,
                                       self.previewView.frame.origin.y + self.previewView.bounds.size.height +
-                                      kPlateLabelTopMargin + plateTextLabel.bounds.size.height / 2);
-  [self.view addSubview:plateTextLabel];
+                                      kPlateLabelTopMargin + self.plateTextLabel.bounds.size.height / 2);
+  [self.view addSubview:self.plateTextLabel];
   
   self.plateNumberView = [UITextField new];
   self.plateNumberView.text = self.viewModel.predictedNumber;
-  self.plateNumberView.textColor = plateTextLabel.textColor;
-  self.plateNumberView.font = plateTextLabel.font;
+  self.plateNumberView.textColor = self.plateTextLabel.textColor;
+  self.plateNumberView.font = self.plateTextLabel.font;
   [self.plateNumberView sizeToFit];
-  CGFloat plateNumberViewOffsetX = (plateTextLabel.frame.origin.x + plateTextLabel.bounds.size.width +
+  CGFloat plateNumberViewOffsetX = (self.plateTextLabel.frame.origin.x + self.plateTextLabel.bounds.size.width +
                                     kPlateTextFieldLeftGap);
   self.plateNumberView.frame = CGRectMake(plateNumberViewOffsetX,
-                                          plateTextLabel.center.y - self.plateNumberView.bounds.size.height / 2,
+                                          self.plateTextLabel.center.y - self.plateNumberView.bounds.size.height / 2,
                                           self.previewView.frame.origin.x + self.previewView.bounds.size.width -
                                           plateNumberViewOffsetX,
                                           self.plateNumberView.bounds.size.height);
@@ -169,12 +210,23 @@ static NSString *const kBlamePattern = @"Обозвали раз: %u";
 {
   [super viewWillAppear:animated];
   self.viewModel.delegate = self;
+  
+  [[NSNotificationCenter defaultCenter] addObserver:self
+                                           selector:@selector(keyboardWillShow:)
+                                               name:UIKeyboardWillShowNotification
+                                             object:nil];
+  [[NSNotificationCenter defaultCenter] addObserver:self
+                                           selector:@selector(keyboardWillHide:)
+                                               name:UIKeyboardWillHideNotification
+                                             object:nil];
 }
 
 - (void)viewDidDisappear:(BOOL)animated
 {
   [super viewDidDisappear:animated];
   self.viewModel.delegate = nil;
+  
+  [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (void)viewModelDidStartSwearingProcess:(RVFeedbackViewModel *)viewModel
@@ -183,6 +235,7 @@ static NSString *const kBlamePattern = @"Обозвали раз: %u";
   
   self.navigationItem.leftBarButtonItem.enabled = NO;
   self.navigationItem.rightBarButtonItem.enabled = NO;
+  self.plateNumberView.enabled = NO;
   self.blameCounterLabel.hidden = YES;
 }
 
@@ -209,6 +262,7 @@ static NSString *const kBlamePattern = @"Обозвали раз: %u";
   
   self.navigationItem.leftBarButtonItem.enabled = YES;
   self.navigationItem.rightBarButtonItem.enabled = YES;
+  self.plateNumberView.enabled = YES;
   UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Ошибка"
                                                       message:error.localizedDescription
                                                      delegate:nil
