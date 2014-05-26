@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		25270D281933D856002B4E78 /* opencv2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 25270D271933D856002B4E78 /* opencv2.framework */; };
 		254A9EE51930E2EE0064938F /* RVFeedbackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 254A9EE41930E2EE0064938F /* RVFeedbackViewController.m */; };
 		254A9EE81930E3130064938F /* RVFeedbackViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 254A9EE71930E3130064938F /* RVFeedbackViewModel.m */; };
 		254A9EEB1930E47C0064938F /* RVBackend.m in Sources */ = {isa = PBXBuildFile; fileRef = 254A9EEA1930E47C0064938F /* RVBackend.m */; };
@@ -41,6 +42,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		25270D271933D856002B4E78 /* opencv2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = opencv2.framework; path = Recognitor/opencv2.framework; sourceTree = "<group>"; };
 		254A9EE31930E2EE0064938F /* RVFeedbackViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RVFeedbackViewController.h; sourceTree = "<group>"; };
 		254A9EE41930E2EE0064938F /* RVFeedbackViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RVFeedbackViewController.m; sourceTree = "<group>"; };
 		254A9EE61930E3130064938F /* RVFeedbackViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RVFeedbackViewModel.h; sourceTree = "<group>"; };
@@ -80,6 +82,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				25270D281933D856002B4E78 /* opencv2.framework in Frameworks */,
 				25A01669192FE11000A9486C /* QuartzCore.framework in Frameworks */,
 				25A01667192FCEC900A9486C /* AVFoundation.framework in Frameworks */,
 				25A0162E192E8AE100A9486C /* CoreGraphics.framework in Frameworks */,
@@ -123,6 +126,7 @@
 		25A0162A192E8AE100A9486C /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				25270D271933D856002B4E78 /* opencv2.framework */,
 				25A01668192FE11000A9486C /* QuartzCore.framework */,
 				25A01666192FCEC900A9486C /* AVFoundation.framework */,
 				25A0162B192E8AE100A9486C /* Foundation.framework */,
@@ -408,6 +412,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Recognitor",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Recognitor/Recognitor-Prefix.pch";
 				INFOPLIST_FILE = "Recognitor/Recognitor-Info.plist";
@@ -422,6 +430,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Recognitor",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Recognitor/Recognitor-Prefix.pch";
 				INFOPLIST_FILE = "Recognitor/Recognitor-Info.plist";
