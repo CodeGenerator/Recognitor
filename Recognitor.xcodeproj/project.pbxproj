@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		25270D281933D856002B4E78 /* opencv2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 25270D271933D856002B4E78 /* opencv2.framework */; };
+		25270D2E1933DA49002B4E78 /* RVPlateNumberExtractor.mm in Sources */ = {isa = PBXBuildFile; fileRef = 25270D2D1933DA49002B4E78 /* RVPlateNumberExtractor.mm */; };
+		25270D301933DCE3002B4E78 /* haarcascade_russian_plate_number.xml in Resources */ = {isa = PBXBuildFile; fileRef = 25270D2F1933DCE3002B4E78 /* haarcascade_russian_plate_number.xml */; };
 		254A9EE51930E2EE0064938F /* RVFeedbackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 254A9EE41930E2EE0064938F /* RVFeedbackViewController.m */; };
 		254A9EE81930E3130064938F /* RVFeedbackViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 254A9EE71930E3130064938F /* RVFeedbackViewModel.m */; };
 		254A9EEB1930E47C0064938F /* RVBackend.m in Sources */ = {isa = PBXBuildFile; fileRef = 254A9EEA1930E47C0064938F /* RVBackend.m */; };
@@ -43,6 +45,9 @@
 
 /* Begin PBXFileReference section */
 		25270D271933D856002B4E78 /* opencv2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = opencv2.framework; path = Recognitor/opencv2.framework; sourceTree = "<group>"; };
+		25270D2C1933DA49002B4E78 /* RVPlateNumberExtractor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RVPlateNumberExtractor.h; sourceTree = "<group>"; };
+		25270D2D1933DA49002B4E78 /* RVPlateNumberExtractor.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = RVPlateNumberExtractor.mm; sourceTree = "<group>"; };
+		25270D2F1933DCE3002B4E78 /* haarcascade_russian_plate_number.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = haarcascade_russian_plate_number.xml; sourceTree = "<group>"; };
 		254A9EE31930E2EE0064938F /* RVFeedbackViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RVFeedbackViewController.h; sourceTree = "<group>"; };
 		254A9EE41930E2EE0064938F /* RVFeedbackViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RVFeedbackViewController.m; sourceTree = "<group>"; };
 		254A9EE61930E3130064938F /* RVFeedbackViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RVFeedbackViewModel.h; sourceTree = "<group>"; };
@@ -104,6 +109,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		25270D311933DCEB002B4E78 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				25270D2F1933DCE3002B4E78 /* haarcascade_russian_plate_number.xml */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
 		25A0161F192E8AE100A9486C = {
 			isa = PBXGroup;
 			children = (
@@ -140,6 +153,7 @@
 		25A01631192E8AE100A9486C /* Recognitor */ = {
 			isa = PBXGroup;
 			children = (
+				25270D311933DCEB002B4E78 /* Resources */,
 				25A0163A192E8AE100A9486C /* RVAppDelegate.h */,
 				25A0163B192E8AE100A9486C /* RVAppDelegate.m */,
 				25A01660192FC9CB00A9486C /* RVViewFinderViewController.h */,
@@ -156,6 +170,8 @@
 				254A9EE71930E3130064938F /* RVFeedbackViewModel.m */,
 				254A9EE91930E47C0064938F /* RVBackend.h */,
 				254A9EEA1930E47C0064938F /* RVBackend.m */,
+				25270D2C1933DA49002B4E78 /* RVPlateNumberExtractor.h */,
+				25270D2D1933DA49002B4E78 /* RVPlateNumberExtractor.mm */,
 				25A0163D192E8AE100A9486C /* Images.xcassets */,
 				25A01632192E8AE100A9486C /* Supporting Files */,
 			);
@@ -269,6 +285,7 @@
 			files = (
 				25A01636192E8AE100A9486C /* InfoPlist.strings in Resources */,
 				25A0163E192E8AE100A9486C /* Images.xcassets in Resources */,
+				25270D301933DCE3002B4E78 /* haarcascade_russian_plate_number.xml in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -291,6 +308,7 @@
 				254A9EE81930E3130064938F /* RVFeedbackViewModel.m in Sources */,
 				254A9EE51930E2EE0064938F /* RVFeedbackViewController.m in Sources */,
 				25A01665192FCA5000A9486C /* RVViewFinderViewModel.m in Sources */,
+				25270D2E1933DA49002B4E78 /* RVPlateNumberExtractor.mm in Sources */,
 				254A9EEB1930E47C0064938F /* RVBackend.m in Sources */,
 				25A0166F192FF58400A9486C /* RVSendActionViewModel.m in Sources */,
 				25A01638192E8AE100A9486C /* main.m in Sources */,
