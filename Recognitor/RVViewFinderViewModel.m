@@ -11,6 +11,7 @@
 
 #import "RVSendActionViewModel.h"
 #import "RVSendActionViewController.h"
+#import "RVPlateNumberExtractor.h"
 
 @interface RVViewFinderViewModel ()
 
@@ -43,7 +44,7 @@
 {
   dispatch_async(self.cameraQueue, ^{
     self.captureSession = [AVCaptureSession new];
-    self.captureSession.sessionPreset = AVCaptureSessionPresetPhoto;
+    self.captureSession.sessionPreset = AVCaptureSessionPreset1280x720;
     
     AVCaptureVideoPreviewLayer *previewLayer = [[AVCaptureVideoPreviewLayer alloc] initWithSession:self.captureSession];
     previewLayer.videoGravity = AVLayerVideoGravityResizeAspectFill;
@@ -152,10 +153,15 @@
   stillImageConnection.videoOrientation = [self videoOrientationForDeviceOrientation:[UIDevice currentDevice].orientation];
   [self.stillImageOutput captureStillImageAsynchronouslyFromConnection:stillImageConnection completionHandler:^(CMSampleBufferRef imageDataSampleBuffer, NSError *error) {
     if (error == nil) {
+      // TODO: optimize! just read values from buffer (use another pixel format)
       NSData *jpegData = [AVCaptureStillImageOutput jpegStillImageNSDataRepresentation:imageDataSampleBuffer];
-      dispatch_async(dispatch_get_main_queue(), ^{
-        [self presentSendActionControllerWithImageData:jpegData];
-      });
+      UIImage *image = [UIImage imageWithData:jpegData];
+      [RVPlateNumberExtractor extractFromImage:image completion:^(NSArray *plateImages) {
+        
+        if ([plateImages count] > 0) {
+          [self presentSendActionControllerWithImageData:UIImageJPEGRepresentation(plateImages[0], 1.0)];
+        }
+      }];
     }
   }];
 }

@@ -28,19 +28,19 @@ struct RVTRansformConstraints
 }
 
 + (unsigned char *)planar8RawDataFromImage:(UIImage *)image
+                                      size:(CGSize)size
 {
   const NSUInteger kBitsPerPixel = 8;
   CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceGray();
   
-  CGSize imageSize = image.size;
-  NSUInteger elementsCount = (NSUInteger)imageSize.width * (NSUInteger)imageSize.height;
+  NSUInteger elementsCount = (NSUInteger)size.width * (NSUInteger)size.height;
   unsigned char *rawData = (unsigned char *)calloc(elementsCount, 1);
   
-  NSUInteger bytesPerRow = (NSUInteger)imageSize.width;
+  NSUInteger bytesPerRow = (NSUInteger)size.width;
   
   CGContextRef context = CGBitmapContextCreate(rawData,
-                                               imageSize.width,
-                                               imageSize.height,
+                                               size.width,
+                                               size.height,
                                                kBitsPerPixel,
                                                bytesPerRow,
                                                colorSpace,
@@ -49,10 +49,10 @@ struct RVTRansformConstraints
   
   UIGraphicsPushContext(context);
   
-  CGContextTranslateCTM(context, 0.0f, imageSize.height);
+  CGContextTranslateCTM(context, 0.0f, size.height);
   CGContextScaleCTM(context, 1.0f, -1.0f);
   
-  [image drawAtPoint: CGPointZero blendMode:kCGBlendModeCopy alpha:1.0f];
+  [image drawInRect:CGRectMake(0.0f, 0.0f, size.width, size.height)];
   
   UIGraphicsPopContext();
   
@@ -62,17 +62,16 @@ struct RVTRansformConstraints
 
 + (UIImage *)cropImageFromImage:(UIImage *)image withRect:(CGRect)rect
 {
-  UIGraphicsBeginImageContextWithOptions(rect.size, YES, 0.0);
-  [image drawAtPoint:CGPointMake(-rect.origin.x, -rect.origin.y) blendMode:kCGBlendModeCopy alpha:1.0f];
-  UIImage *croppedImage = UIGraphicsGetImageFromCurrentImageContext();
-  UIGraphicsEndImageContext();
+  UIImage *croppedImage = nil;
+  
+  @autoreleasepool {
+    UIGraphicsBeginImageContextWithOptions(rect.size, YES, 0.0);
+    [image drawAtPoint:CGPointMake(-rect.origin.x, -rect.origin.y) blendMode:kCGBlendModeCopy alpha:1.0f];
+    croppedImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+  }
   
   return croppedImage;
-}
-
-+ (CGRect)rectFromCVRect:(cv::Rect &)rect
-{
-  return CGRectMake(rect.x, rect.y, rect.width, rect.height);
 }
 
 + (CGRect)enlargeRect:(CGRect)rect
@@ -96,23 +95,41 @@ struct RVTRansformConstraints
 
 + (void)extractFromImage:(UIImage *)image completion:(void (^)(NSArray *plateImages))completion
 {
+  const CGFloat kMaxSideSizeForCascade = 800;
+  
   dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+    NSTimeInterval beginOperationTime = CACurrentMediaTime();
     NSString *cascadeFilePathString = [self pathToCascadeFile];
     const char *cascadeFilePath = [cascadeFilePathString UTF8String];
     
-    unsigned char *rawImageData = [self planar8RawDataFromImage:image];
-    CGSize imageSize = image.size;
-    cv::Mat cvImage(imageSize.height, imageSize.width, CV_8UC1, rawImageData);
+    CGFloat imageAspect = image.size.width / image.size.height;
+    CGSize imageSizeForCascade = CGSizeZero;
+    if (imageAspect > 1.0f) {
+      imageSizeForCascade = CGSizeMake(kMaxSideSizeForCascade, kMaxSideSizeForCascade / imageAspect);
+    } else {
+      imageSizeForCascade = CGSizeMake(kMaxSideSizeForCascade * imageAspect, kMaxSideSizeForCascade);
+    }
+    unsigned char *rawImageData = [self planar8RawDataFromImage:image size:imageSizeForCascade];
+    cv::Mat cvImage(imageSizeForCascade.height, imageSizeForCascade.width, CV_8UC1, rawImageData);
     
     std::vector<cv::Rect> plates;
     cv::CascadeClassifier plateClassifier(cascadeFilePath);
     
-    plateClassifier.detectMultiScale(cvImage, plates, 1.1, 10, 5, cv::Size(70, 21), cv::Size(imageSize.width, imageSize.height));
+    NSLog(@"pt1: %f", CACurrentMediaTime() - beginOperationTime);
+    
+    plateClassifier.detectMultiScale(cvImage, plates, 1.1, 10, 5, cv::Size(70, 21), cv::Size(imageSizeForCascade.width, imageSizeForCascade.height));
+    
+    NSLog(@"pt2: %f", CACurrentMediaTime() - beginOperationTime);
     NSMutableArray *plateImages = [NSMutableArray arrayWithCapacity:plates.size()];
     
+    CGSize imageSize = image.size;
     @autoreleasepool {
       for (std::vector<cv::Rect>::iterator it = plates.begin(); it != plates.end(); it++) {
-        CGRect rectToCropFrom = [self rectFromCVRect:*it];
+        CGRect rectToCropFrom = CGRectMake(it->x * imageSize.width / imageSizeForCascade.width,
+                                           it->y * imageSize.height / imageSizeForCascade.height,
+                                           it->width * imageSize.width / imageSizeForCascade.width,
+                                           it->height * imageSize.height / imageSizeForCascade.height);
+        
         CGRect enlargedRect = [self enlargeRect:rectToCropFrom
                                           ratio:{.width = 1.2f, .height = 1.3f}
                                     constraints:{.left = 0.0f, .top = 0.0f, .right = imageSize.width, .bottom = imageSize.height}];
@@ -122,6 +139,9 @@ struct RVTRansformConstraints
     }
     
     free(rawImageData);
+    
+    NSLog(@"Extract operation time in sec: %f", CACurrentMediaTime() - beginOperationTime);
+    NSLog(@"plates: %u", plates.size());
     
     if (completion != nil) {
       dispatch_async(dispatch_get_main_queue(), ^{
