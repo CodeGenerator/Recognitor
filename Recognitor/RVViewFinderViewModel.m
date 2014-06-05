@@ -184,6 +184,9 @@
   RVSendActionViewController *viewController = [[RVSendActionViewController alloc] initWithViewModel:viewModel];
   UINavigationController *navigationVC = [[UINavigationController alloc] initWithRootViewController:viewController];
   navigationVC.navigationBar.translucent = NO;
+  navigationVC.navigationBar.barTintColor = [UIColor darkBackgroundColor];
+  navigationVC.navigationBar.tintColor = [UIColor semiLightTextColor];
+  navigationVC.navigationBar.barStyle = UIBarStyleBlack;
   
   [self.delegate presentViewController:navigationVC animated:YES completion:nil];
 }

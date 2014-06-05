@@ -15,6 +15,7 @@
 
 @property (nonatomic, strong) RVViewFinderViewModel *viewModel;
 @property (nonatomic, assign) BOOL cameraLayerWasConfigured;
+@property (nonatomic, strong) UIButton *captureButton;
 
 @end
 
@@ -41,9 +42,28 @@
   [super viewDidLoad];
   self.view.backgroundColor = [UIColor blackColor];
   
-  UITapGestureRecognizer *tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self
-                                                                                  action:@selector(viewWasTappedWithRecognizer:)];
-  [self.view addGestureRecognizer:tapRecognizer];
+  [self createCaptureButton];
+}
+
+- (void)createCaptureButton
+{
+  const CGFloat kBottomMargin = 20.0f;
+  
+  self.captureButton = [UIButton buttonWithType:UIButtonTypeCustom];
+  
+  UIImage *captureButtonImage = [UIImage imageNamed:@"capture-button"];
+  [self.captureButton setImage:captureButtonImage forState:UIControlStateNormal];
+  
+  UIImage *captureButtonImageHighlighted = [UIImage imageNamed:@"capture-button-hovered"];
+  [self.captureButton setImage:captureButtonImageHighlighted forState:UIControlStateHighlighted];
+  
+  [self.captureButton sizeToFit];
+  self.captureButton.center = CGPointMake(self.view.bounds.size.width / 2,
+                                          self.view.bounds.size.height - kBottomMargin -
+                                          self.captureButton.bounds.size.height / 2);
+  [self.view addSubview:self.captureButton];
+  
+  [self.captureButton addTarget:self action:@selector(captureButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -55,6 +75,13 @@
     [self configurePreviewLayer];
   }
   [self.viewModel controllerWillAppear];
+  
+  [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
+  [[NSNotificationCenter defaultCenter] addObserver:self
+                                           selector:@selector(orientationDidChange:)
+                                               name:UIDeviceOrientationDidChangeNotification
+                                             object:nil];
+  [self applyOrientation:[UIDevice currentDevice].orientation];
 }
 
 - (void)viewDidDisappear:(BOOL)animated
@@ -63,6 +90,46 @@
   
   self.viewModel.delegate = nil;
   [self.viewModel controllerDidDisappear];
+  
+  [[UIDevice currentDevice] endGeneratingDeviceOrientationNotifications];
+  [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+- (void)orientationDidChange:(NSNotificationCenter *)notification
+{
+  [self applyOrientation:[UIDevice currentDevice].orientation];
+}
+
+- (void)applyOrientation:(UIDeviceOrientation)orientation
+{
+  UIInterfaceOrientation interfaceOrientationToApply = UIInterfaceOrientationPortrait;
+  if (UIDeviceOrientationIsValidInterfaceOrientation(orientation)) {
+    interfaceOrientationToApply = (UIInterfaceOrientation)orientation;
+  }
+  
+  CGFloat captureButtonRotationAngel = 0.0f;
+  switch (interfaceOrientationToApply) {
+    case UIInterfaceOrientationPortrait:
+      captureButtonRotationAngel = 0.0f;
+      break;
+    case UIInterfaceOrientationPortraitUpsideDown:
+      captureButtonRotationAngel = M_PI;
+      break;
+    case UIInterfaceOrientationLandscapeLeft:
+      captureButtonRotationAngel = -M_PI_2;
+      break;
+    case UIInterfaceOrientationLandscapeRight:
+      captureButtonRotationAngel = M_PI_2;
+      break;
+      
+    default:
+      NSAssert(nil, @"Wrong orientation");
+      break;
+  }
+  
+  [UIView animateWithDuration:0.3 delay:0.0 options:UIViewAnimationCurveEaseInOut|UIViewAnimationOptionBeginFromCurrentState animations:^{
+    self.captureButton.transform = CGAffineTransformMakeRotation(captureButtonRotationAngel);
+  } completion:nil];
 }
 
 - (void)configurePreviewLayer
@@ -91,7 +158,7 @@
   return YES;
 }
 
-- (void)viewWasTappedWithRecognizer:(UITapGestureRecognizer *)tapRecognizer
+- (void)captureButtonPressed:(id)sender
 {
   if (!self.viewModel.cameraIsInitialized) {
     return;

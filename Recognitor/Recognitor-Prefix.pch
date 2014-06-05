@@ -13,6 +13,7 @@
 #ifdef __OBJC__
   #import <UIKit/UIKit.h>
   #import <Foundation/Foundation.h>
+  #import "UIColor+AppColors.h"
 
   #define NOT_IMPLEMENTED NSCAssert1(nil, @"Not implemented yet %s!", __PRETTY_FUNCTION__);
   #define MAIN_THREAD_ONLY NSCAssert([NSThread isMainThread], @"Should be invoked on main thread!");

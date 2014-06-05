@@ -36,6 +36,7 @@
 		25A01669192FE11000A9486C /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 25A01668192FE11000A9486C /* QuartzCore.framework */; };
 		25A0166C192FF4ED00A9486C /* RVSendActionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 25A0166B192FF4ED00A9486C /* RVSendActionViewController.m */; };
 		25A0166F192FF58400A9486C /* RVSendActionViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 25A0166E192FF58400A9486C /* RVSendActionViewModel.m */; };
+		25FE9D671940FD1800D531C9 /* UIColor+AppColors.m in Sources */ = {isa = PBXBuildFile; fileRef = 25FE9D661940FD1800D531C9 /* UIColor+AppColors.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -95,6 +96,8 @@
 		25A0166B192FF4ED00A9486C /* RVSendActionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RVSendActionViewController.m; sourceTree = "<group>"; };
 		25A0166D192FF58400A9486C /* RVSendActionViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RVSendActionViewModel.h; sourceTree = "<group>"; };
 		25A0166E192FF58400A9486C /* RVSendActionViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RVSendActionViewModel.m; sourceTree = "<group>"; };
+		25FE9D651940FD1800D531C9 /* UIColor+AppColors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+AppColors.h"; sourceTree = "<group>"; };
+		25FE9D661940FD1800D531C9 /* UIColor+AppColors.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+AppColors.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -150,6 +153,8 @@
 			children = (
 				25270D2C1933DA49002B4E78 /* RVPlateNumberExtractor.h */,
 				25270D2D1933DA49002B4E78 /* RVPlateNumberExtractor.mm */,
+				25FE9D651940FD1800D531C9 /* UIColor+AppColors.h */,
+				25FE9D661940FD1800D531C9 /* UIColor+AppColors.m */,
 			);
 			name = Utils;
 			sourceTree = "<group>";
@@ -362,6 +367,7 @@
 				25A01665192FCA5000A9486C /* RVViewFinderViewModel.m in Sources */,
 				25270D2E1933DA49002B4E78 /* RVPlateNumberExtractor.mm in Sources */,
 				254A9EEB1930E47C0064938F /* RVBackend.m in Sources */,
+				25FE9D671940FD1800D531C9 /* UIColor+AppColors.m in Sources */,
 				25A0166F192FF58400A9486C /* RVSendActionViewModel.m in Sources */,
 				25A01638192E8AE100A9486C /* main.m in Sources */,
 				25270D4B1936458E002B4E78 /* RVPhotoCropperViewModel.m in Sources */,

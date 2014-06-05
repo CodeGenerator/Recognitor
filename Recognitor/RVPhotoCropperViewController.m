@@ -59,7 +59,7 @@ typedef NS_ENUM(NSUInteger, RVCornerType)
 {
   [super viewDidLoad];
   self.view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-  self.view.backgroundColor = [UIColor blackColor];
+  self.view.backgroundColor = [UIColor lightBackgroundColor];
   
   [self configureImageView];
   [self configureLoadingIndicator];

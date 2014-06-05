@@ -54,6 +54,7 @@ const CGFloat kCellHeight = 50.0f;
   self.view.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
   
   self.tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStylePlain];
+  self.tableView.backgroundColor = [UIColor lightBackgroundColor];
   self.tableView.separatorInset = UIEdgeInsetsZero;
   self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
   self.tableView.delegate = self;

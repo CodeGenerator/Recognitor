@@ -57,6 +57,7 @@
           } else {
             if ([error.domain isEqualToString:NSURLErrorDomain] && error.code == NSURLErrorCancelled) {
               NSAssert(self.recognitionState == RVPlateNumberRecognitionStateCanceling, @"Canceled in wrong state");
+              self.lastError = nil;
               self.recognitionState = RVPlateNumberRecognitionStateUnknown;
               return;
             } else if ([error.domain isEqualToString:RVBackendErrorDomain] && (error.code == RVBackendErrorNotRecognized ||error.code == RVBackendErrorIncorrectlyRecognized)) {

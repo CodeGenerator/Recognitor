@@ -11,7 +11,6 @@
 
 
 static NSString *const kBlamePattern = @"Обозвали раз: %u";
-static CGFloat kElementsShiftForKeyboardAppearence = 100.0f;
 
 
 @interface RVFeedbackViewController () <UITextFieldDelegate, RVFeedbackModelDelegate>
@@ -53,7 +52,7 @@ static CGFloat kElementsShiftForKeyboardAppearence = 100.0f;
     rightBarButtonItem.enabled = NO;
     self.navigationItem.rightBarButtonItem = rightBarButtonItem;
     
-    self.navigationItem.title = @"Комментарий";
+    self.navigationItem.title = @"Обозвать";
   }
   
   return self;
@@ -62,7 +61,7 @@ static CGFloat kElementsShiftForKeyboardAppearence = 100.0f;
 - (void)viewDidLoad
 {
   [super viewDidLoad];
-  self.view.backgroundColor = [UIColor whiteColor];
+  self.view.backgroundColor = [UIColor lightBackgroundColor];
   self.view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
 
   [self configurePreviewView];
@@ -151,6 +150,8 @@ static CGFloat kElementsShiftForKeyboardAppearence = 100.0f;
                                  resultImageSize.width,
                                  resultImageSize.height);
   self.previewView.frame = imageFrame;
+  self.previewView.layer.borderWidth = 1.0f;
+  self.previewView.layer.borderColor = [UIColor lightTextColor].CGColor;
   [self.view addSubview:self.previewView];
   
   self.indicatorView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
@@ -170,7 +171,7 @@ static CGFloat kElementsShiftForKeyboardAppearence = 100.0f;
   self.plateTextLabel = [UILabel new];
   self.plateTextLabel.font = [UIFont systemFontOfSize:24.0f];
   self.plateTextLabel.text = @"Номер:";
-  self.plateTextLabel.textColor = [UIColor blackColor];
+  self.plateTextLabel.textColor = [UIColor lightTextColor];
   [self.plateTextLabel sizeToFit];
   self.plateTextLabel.center = CGPointMake(kPlateLabelLeftMargin + self.plateTextLabel.bounds.size.width / 2,
                                       self.previewView.frame.origin.y + self.previewView.bounds.size.height +
@@ -193,12 +194,16 @@ static CGFloat kElementsShiftForKeyboardAppearence = 100.0f;
   self.plateNumberView.autocapitalizationType = UITextAutocapitalizationTypeAllCharacters;
   self.plateNumberView.autocorrectionType = UITextAutocorrectionTypeNo;
   self.plateNumberView.spellCheckingType = UITextSpellCheckingTypeNo;
+  self.plateNumberView.textAlignment = NSTextAlignmentCenter;
+  
+  self.plateNumberView.layer.borderWidth = 1.0f;
+  self.plateNumberView.layer.borderColor = [UIColor lightTextColor].CGColor;
   
   [self.view addSubview:self.plateNumberView];
   
   self.plateNumberView.delegate = self;
   
-  self.plateNumberLoadingView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+  self.plateNumberLoadingView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
   [self.plateNumberLoadingView sizeToFit];
   self.plateNumberLoadingView.center = self.plateNumberView.center;
   [self.view addSubview:self.plateNumberLoadingView];
@@ -211,7 +216,7 @@ static CGFloat kElementsShiftForKeyboardAppearence = 100.0f;
   self.blameCounterLabel = [UILabel new];
   self.blameCounterLabel.font = [UIFont systemFontOfSize:24.0f];
   self.blameCounterLabel.text = kBlamePattern;
-  self.blameCounterLabel.textColor = [UIColor blackColor];
+  self.blameCounterLabel.textColor = [UIColor lightTextColor];
   [self.blameCounterLabel sizeToFit];
   self.blameCounterLabel.frame = CGRectMake(self.previewView.frame.origin.x,
                                             self.plateNumberView.frame.origin.y + self.plateNumberView.bounds.size.height +

@@ -153,7 +153,7 @@ static NSString * const kRecognitionStateKeyPath = @"recognitionState";
   
   [self.delegate viewModel:self didChangePlateStateAtIndex:plateIndex];
   
-  if (plateNumber.recognitionState == RVPlateNumberRecognitionStateUnknown) {
+  if (plateNumber.recognitionState == RVPlateNumberRecognitionStateUnknown && plateNumber.lastError != nil) {
     [self.delegate viewModel:self didReceiveError:plateNumber.lastError];
   }
 }

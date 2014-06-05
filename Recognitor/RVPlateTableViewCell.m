@@ -24,11 +24,20 @@
     if (self) {
       [self configureImageView];
       
-      self.activityView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+      self.activityView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
       [self.contentView addSubview:self.activityView];
       
       self.plateLabel = [UILabel new];
+      self.plateLabel.textColor = [UIColor lightTextColor];
       [self.contentView addSubview:self.plateLabel];
+      
+      self.contentView.backgroundColor = [UIColor lightBackgroundColor];
+      self.backgroundColor = [UIColor lightBackgroundColor];
+      
+      self.selectedBackgroundView = [[UIView alloc] initWithFrame:self.contentView.bounds];
+      self.selectedBackgroundView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+      self.selectedBackgroundView.backgroundColor = [UIColor darkBackgroundColor];
+      
     }
     return self;
 }
