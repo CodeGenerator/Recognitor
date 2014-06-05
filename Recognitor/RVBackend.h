@@ -13,12 +13,21 @@ typedef void(^BlamePlateCompletion)(NSError *error);
 typedef void(^BlameStatisticsCompletion)(NSUInteger blameCounter, NSError *error);
 
 
+extern NSString* const RVBackendErrorDomain;
+
+typedef NS_ENUM(NSUInteger, RVBackendError)
+{
+  RVBackendErrorNotRecognized = 0,
+  RVBackendErrorIncorrectlyRecognized,
+};
+
+
 @interface RVBackend : NSObject
 
 + (instancetype)sharedInstance;
 
-- (void)recognizePlateNumberFromData:(NSData *)data
-                          completion:(RecognizePlateCompletion)completion;
+- (NSURLSessionTask *)recognizePlateNumberFromData:(NSData *)data
+                                        completion:(RecognizePlateCompletion)completion;
 
 - (void)blamePlateNumber:(NSString *)plateNumber completion:(BlamePlateCompletion)completion;
 

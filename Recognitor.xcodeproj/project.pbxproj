@@ -13,9 +13,11 @@
 		25270D481936456A002B4E78 /* RVPhotoCropperViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 25270D471936456A002B4E78 /* RVPhotoCropperViewController.m */; };
 		25270D4B1936458E002B4E78 /* RVPhotoCropperViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 25270D4A1936458E002B4E78 /* RVPhotoCropperViewModel.m */; };
 		25270D5019365B9D002B4E78 /* RVCropSelectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 25270D4F19365B9D002B4E78 /* RVCropSelectionView.m */; };
-		254A9EE51930E2EE0064938F /* RVFeedbackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 254A9EE41930E2EE0064938F /* RVFeedbackViewController.m */; };
-		254A9EE81930E3130064938F /* RVFeedbackViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 254A9EE71930E3130064938F /* RVFeedbackViewModel.m */; };
+		25496209193928F00008ED3A /* RVPlateTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 25496208193928F00008ED3A /* RVPlateTableViewCell.m */; };
+		2549620D19393D840008ED3A /* RVFeedbackViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 254A9EE71930E3130064938F /* RVFeedbackViewModel.m */; };
+		2549620E19393D860008ED3A /* RVFeedbackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 254A9EE41930E2EE0064938F /* RVFeedbackViewController.m */; };
 		254A9EEB1930E47C0064938F /* RVBackend.m in Sources */ = {isa = PBXBuildFile; fileRef = 254A9EEA1930E47C0064938F /* RVBackend.m */; };
+		256CCAD31937CC6100D9C6B7 /* RVPlateNumber.m in Sources */ = {isa = PBXBuildFile; fileRef = 256CCAD21937CC6100D9C6B7 /* RVPlateNumber.m */; };
 		25A0162C192E8AE100A9486C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 25A0162B192E8AE100A9486C /* Foundation.framework */; };
 		25A0162E192E8AE100A9486C /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 25A0162D192E8AE100A9486C /* CoreGraphics.framework */; };
 		25A01630192E8AE100A9486C /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 25A0162F192E8AE100A9486C /* UIKit.framework */; };
@@ -57,12 +59,16 @@
 		25270D4A1936458E002B4E78 /* RVPhotoCropperViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RVPhotoCropperViewModel.m; sourceTree = "<group>"; };
 		25270D4E19365B9D002B4E78 /* RVCropSelectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RVCropSelectionView.h; sourceTree = "<group>"; };
 		25270D4F19365B9D002B4E78 /* RVCropSelectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RVCropSelectionView.m; sourceTree = "<group>"; };
+		25496207193928F00008ED3A /* RVPlateTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RVPlateTableViewCell.h; sourceTree = "<group>"; };
+		25496208193928F00008ED3A /* RVPlateTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RVPlateTableViewCell.m; sourceTree = "<group>"; };
 		254A9EE31930E2EE0064938F /* RVFeedbackViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RVFeedbackViewController.h; sourceTree = "<group>"; };
 		254A9EE41930E2EE0064938F /* RVFeedbackViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RVFeedbackViewController.m; sourceTree = "<group>"; };
 		254A9EE61930E3130064938F /* RVFeedbackViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RVFeedbackViewModel.h; sourceTree = "<group>"; };
 		254A9EE71930E3130064938F /* RVFeedbackViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RVFeedbackViewModel.m; sourceTree = "<group>"; };
 		254A9EE91930E47C0064938F /* RVBackend.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RVBackend.h; sourceTree = "<group>"; };
 		254A9EEA1930E47C0064938F /* RVBackend.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RVBackend.m; sourceTree = "<group>"; };
+		256CCAD11937CC6100D9C6B7 /* RVPlateNumber.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RVPlateNumber.h; sourceTree = "<group>"; };
+		256CCAD21937CC6100D9C6B7 /* RVPlateNumber.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RVPlateNumber.m; sourceTree = "<group>"; };
 		25A01628192E8AE100A9486C /* Recognitor.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Recognitor.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		25A0162B192E8AE100A9486C /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		25A0162D192E8AE100A9486C /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -139,6 +145,26 @@
 			name = Crop;
 			sourceTree = "<group>";
 		};
+		256CCACF1937CAEB00D9C6B7 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				25270D2C1933DA49002B4E78 /* RVPlateNumberExtractor.h */,
+				25270D2D1933DA49002B4E78 /* RVPlateNumberExtractor.mm */,
+			);
+			name = Utils;
+			sourceTree = "<group>";
+		};
+		256CCAD01937CB3100D9C6B7 /* DataModel */ = {
+			isa = PBXGroup;
+			children = (
+				254A9EE91930E47C0064938F /* RVBackend.h */,
+				254A9EEA1930E47C0064938F /* RVBackend.m */,
+				256CCAD11937CC6100D9C6B7 /* RVPlateNumber.h */,
+				256CCAD21937CC6100D9C6B7 /* RVPlateNumber.m */,
+			);
+			name = DataModel;
+			sourceTree = "<group>";
+		};
 		25A0161F192E8AE100A9486C = {
 			isa = PBXGroup;
 			children = (
@@ -180,6 +206,8 @@
 				25A0163B192E8AE100A9486C /* RVAppDelegate.m */,
 				25A01660192FC9CB00A9486C /* RVViewFinderViewController.h */,
 				25A01661192FC9CB00A9486C /* RVViewFinderViewController.m */,
+				25496207193928F00008ED3A /* RVPlateTableViewCell.h */,
+				25496208193928F00008ED3A /* RVPlateTableViewCell.m */,
 				25A01663192FCA5000A9486C /* RVViewFinderViewModel.h */,
 				25A01664192FCA5000A9486C /* RVViewFinderViewModel.m */,
 				25A0166A192FF4ED00A9486C /* RVSendActionViewController.h */,
@@ -190,10 +218,8 @@
 				254A9EE41930E2EE0064938F /* RVFeedbackViewController.m */,
 				254A9EE61930E3130064938F /* RVFeedbackViewModel.h */,
 				254A9EE71930E3130064938F /* RVFeedbackViewModel.m */,
-				254A9EE91930E47C0064938F /* RVBackend.h */,
-				254A9EEA1930E47C0064938F /* RVBackend.m */,
-				25270D2C1933DA49002B4E78 /* RVPlateNumberExtractor.h */,
-				25270D2D1933DA49002B4E78 /* RVPlateNumberExtractor.mm */,
+				256CCAD01937CB3100D9C6B7 /* DataModel */,
+				256CCACF1937CAEB00D9C6B7 /* Utils */,
 				25270D4D19365B33002B4E78 /* Crop */,
 				25A0163D192E8AE100A9486C /* Images.xcassets */,
 				25A01632192E8AE100A9486C /* Supporting Files */,
@@ -328,9 +354,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				25270D5019365B9D002B4E78 /* RVCropSelectionView.m in Sources */,
+				256CCAD31937CC6100D9C6B7 /* RVPlateNumber.m in Sources */,
+				25496209193928F00008ED3A /* RVPlateTableViewCell.m in Sources */,
+				2549620E19393D860008ED3A /* RVFeedbackViewController.m in Sources */,
 				25A0163C192E8AE100A9486C /* RVAppDelegate.m in Sources */,
-				254A9EE81930E3130064938F /* RVFeedbackViewModel.m in Sources */,
-				254A9EE51930E2EE0064938F /* RVFeedbackViewController.m in Sources */,
 				25270D481936456A002B4E78 /* RVPhotoCropperViewController.m in Sources */,
 				25A01665192FCA5000A9486C /* RVViewFinderViewModel.m in Sources */,
 				25270D2E1933DA49002B4E78 /* RVPlateNumberExtractor.mm in Sources */,
@@ -338,6 +365,7 @@
 				25A0166F192FF58400A9486C /* RVSendActionViewModel.m in Sources */,
 				25A01638192E8AE100A9486C /* main.m in Sources */,
 				25270D4B1936458E002B4E78 /* RVPhotoCropperViewModel.m in Sources */,
+				2549620D19393D840008ED3A /* RVFeedbackViewModel.m in Sources */,
 				25A01662192FC9CB00A9486C /* RVViewFinderViewController.m in Sources */,
 				25A0166C192FF4ED00A9486C /* RVSendActionViewController.m in Sources */,
 			);
@@ -463,8 +491,9 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Recognitor/Recognitor-Prefix.pch";
 				INFOPLIST_FILE = "Recognitor/Recognitor-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -481,8 +510,9 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Recognitor/Recognitor-Prefix.pch";
 				INFOPLIST_FILE = "Recognitor/Recognitor-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

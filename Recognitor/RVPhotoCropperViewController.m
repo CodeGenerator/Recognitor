@@ -42,6 +42,9 @@ typedef NS_ENUM(NSUInteger, RVCornerType)
   self = [super initWithNibName:nil bundle:nil];
   if (self) {
     _viewModel = viewModel;
+    
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Выбрать" style:UIBarButtonItemStylePlain target:self action:@selector(didSelectRectToCrop)];
+    self.navigationItem.title = @"Выделите номер";
   }
   
   return self;
@@ -113,7 +116,7 @@ typedef NS_ENUM(NSUInteger, RVCornerType)
 {
   self.selectionView = [[RVCropSelectionView alloc] init];
   self.selectionView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-  self.selectionView.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent: 0.4f];
+  self.selectionView.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent: 0.5f];
   [self.imageView addSubview:self.selectionView];
   
   self.panRecognizer.enabled = NO;

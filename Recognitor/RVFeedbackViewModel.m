@@ -7,15 +7,18 @@
 //
 
 #import "RVFeedbackViewModel.h"
+#import "RVPlateNumber.h"
 #import "RVBackend.h"
+
+NSString *const kRecognitionStateKeyPath = @"recognitionState";
 
 
 @interface RVFeedbackViewModel ()
 
-@property (nonatomic, strong, readwrite) UIImage *image;
-@property (nonatomic, copy, readwrite) NSString *predictedNumber;
 @property (nonatomic, assign, readwrite) BOOL statisticsIsAvailable;
 @property (nonatomic, assign, readwrite) NSUInteger blameCounter;
+
+@property (nonatomic, strong) RVPlateNumber *plateObject;
 
 @end
 
@@ -24,18 +27,24 @@
 
 - (instancetype)init
 {
-  return [self initWithImage:nil predictedNumber:nil];
+  return [self initWithPlateObject:nil];
 }
 
-- (instancetype)initWithImage:(UIImage *)image predictedNumber:(NSString *)predictedNumber
+- (instancetype)initWithPlateObject:(RVPlateNumber *)plateObject
 {
+  NSParameterAssert(plateObject != nil);
   self = [super init];
   if (self) {
-    _image = image;
-    _predictedNumber = [predictedNumber copy];
+    _plateObject = plateObject;
+    [_plateObject addObserver:self forKeyPath:kRecognitionStateKeyPath options:0 context:NULL];
   }
   
   return self;
+}
+
+- (void)dealloc
+{
+  [_plateObject removeObserver:self forKeyPath:kRecognitionStateKeyPath];
 }
 
 - (NSError *)invalidNumberError
@@ -44,6 +53,21 @@
                                        code:0
                                    userInfo:@{NSLocalizedDescriptionKey : @"Неверный формат номера"}];
   return error;
+}
+
+- (BOOL)recognizing
+{
+  return self.plateObject.recognitionState == RVPlateNumberRecognitionStateRecognizing;
+}
+
+- (NSString *)plateNumber
+{
+  return self.plateObject.string;
+}
+
+- (UIImage *)image
+{
+  return self.plateObject.image;
 }
 
 - (void)swearActionWithPlateNumber:(NSString *)plateNumber
@@ -56,21 +80,29 @@
     return;
   }
   
-  [[RVBackend sharedInstance] blamePlateNumber:plateNumber completion:^(NSError *error) {
-    if (error != nil) {
-      [self.delegate viewModel:self didReceiveError:error];
+  self.plateObject.string = plateNumber;
+  [self.plateObject blameWithCompletion:^(BOOL success) {
+    if (!success) {
+      [self.delegate viewModel:self didReceiveError:self.plateObject.lastError];
       return;
     }
     
-    [[RVBackend sharedInstance] blameStatisticsForPlateNumber:plateNumber completion:^(NSUInteger blameCounter, NSError *error) {
-      if (error == nil) {
+    [self.plateObject requestBlameCountWithCompletion:^(BOOL success, NSUInteger blameCount) {
+      if (success) {
         self.statisticsIsAvailable = YES;
-        self.blameCounter = blameCounter;
+        self.blameCounter = blameCount;
+        [self.delegate viewModelDidFinishSwearingProcess:self];
       }
-      
-      [self.delegate viewModelDidFinishSwearingProcess:self];
     }];
   }];
+}
+
+- (void)observeValueForKeyPath:(NSString *)keyPath
+                      ofObject:(RVPlateNumber *)plateObject
+                        change:(NSDictionary *)change
+                       context:(void *)context
+{
+  [self.delegate viewModelDidChangeRecognizingState:self];
 }
 
 @end

@@ -22,6 +22,8 @@ static CGFloat kElementsShiftForKeyboardAppearence = 100.0f;
 @property (nonatomic, strong) UILabel *plateTextLabel;
 @property (nonatomic, strong) UITextField *plateNumberView;
 @property (nonatomic, strong) UILabel *blameCounterLabel;
+@property (nonatomic, strong) UIActivityIndicatorView *plateNumberLoadingView;
+@property (nonatomic, assign) CGFloat textLabelOffset;
 
 @end
 
@@ -48,7 +50,9 @@ static CGFloat kElementsShiftForKeyboardAppearence = 100.0f;
                                                                            style:UIBarButtonItemStylePlain
                                                                           target:self
                                                                           action:@selector(swear)];
+    rightBarButtonItem.enabled = NO;
     self.navigationItem.rightBarButtonItem = rightBarButtonItem;
+    
     self.navigationItem.title = @"Комментарий";
   }
   
@@ -97,12 +101,23 @@ static CGFloat kElementsShiftForKeyboardAppearence = 100.0f;
 
 - (void)keyboardWillShow:(NSNotification *)notification
 {
-  [self layoutElementsForKeyboardNotification:notification offset:-kElementsShiftForKeyboardAppearence];
+  const CGFloat kKeyboardTopMargin = 20.0f;
+  
+  NSDictionary *userInfo = notification.userInfo;
+  CGRect keyboardRect = [self.view convertRect:[userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue]
+                                      fromView:[UIApplication sharedApplication].keyWindow];
+  
+  CGFloat plateTextLabelBottomBorder = self.plateTextLabel.frame.origin.y + self.plateTextLabel.bounds.size.height;
+  CGFloat keyboardTopBorder = keyboardRect.origin.y;
+  
+  self.textLabelOffset = MAX(plateTextLabelBottomBorder + kKeyboardTopMargin - keyboardTopBorder, 0.0f);
+  
+  [self layoutElementsForKeyboardNotification:notification offset:-self.textLabelOffset];
 }
 
 - (void)keyboardWillHide:(NSNotification *)notification
 {
-  [self layoutElementsForKeyboardNotification:notification offset:kElementsShiftForKeyboardAppearence];
+  [self layoutElementsForKeyboardNotification:notification offset:self.textLabelOffset];
 }
 
 - (void)endSwearing
@@ -148,20 +163,22 @@ static CGFloat kElementsShiftForKeyboardAppearence = 100.0f;
 - (void)configurePlateTextField
 {
   const CGFloat kPlateLabelTopMargin = 20.0f;
+  const CGFloat kPlateLabelLeftMargin = 40.0f;
   const CGFloat kPlateTextFieldLeftGap = 20.0f;
+  
   
   self.plateTextLabel = [UILabel new];
   self.plateTextLabel.font = [UIFont systemFontOfSize:24.0f];
   self.plateTextLabel.text = @"Номер:";
   self.plateTextLabel.textColor = [UIColor blackColor];
   [self.plateTextLabel sizeToFit];
-  self.plateTextLabel.center = CGPointMake(self.previewView.frame.origin.x + self.plateTextLabel.bounds.size.width / 2,
+  self.plateTextLabel.center = CGPointMake(kPlateLabelLeftMargin + self.plateTextLabel.bounds.size.width / 2,
                                       self.previewView.frame.origin.y + self.previewView.bounds.size.height +
                                       kPlateLabelTopMargin + self.plateTextLabel.bounds.size.height / 2);
   [self.view addSubview:self.plateTextLabel];
   
   self.plateNumberView = [UITextField new];
-  self.plateNumberView.text = self.viewModel.predictedNumber;
+  self.plateNumberView.text = self.viewModel.plateNumber;
   self.plateNumberView.textColor = self.plateTextLabel.textColor;
   self.plateNumberView.font = self.plateTextLabel.font;
   [self.plateNumberView sizeToFit];
@@ -180,6 +197,11 @@ static CGFloat kElementsShiftForKeyboardAppearence = 100.0f;
   [self.view addSubview:self.plateNumberView];
   
   self.plateNumberView.delegate = self;
+  
+  self.plateNumberLoadingView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+  [self.plateNumberLoadingView sizeToFit];
+  self.plateNumberLoadingView.center = self.plateNumberView.center;
+  [self.view addSubview:self.plateNumberLoadingView];
 }
 
 - (void)configureBlameCounterLabel
@@ -219,6 +241,7 @@ static CGFloat kElementsShiftForKeyboardAppearence = 100.0f;
                                            selector:@selector(keyboardWillHide:)
                                                name:UIKeyboardWillHideNotification
                                              object:nil];
+  [self configureViewsForRecognitionState];
 }
 
 - (void)viewDidDisappear:(BOOL)animated
@@ -254,6 +277,24 @@ static CGFloat kElementsShiftForKeyboardAppearence = 100.0f;
                                                                             style:UIBarButtonItemStyleDone
                                                                            target:self
                                                                            action:@selector(endSwearing)];
+}
+
+- (void)configureViewsForRecognitionState
+{
+  BOOL recognizing = self.viewModel.recognizing;
+  self.navigationItem.rightBarButtonItem.enabled = !recognizing;
+  self.plateNumberView.hidden = recognizing;
+  if (recognizing) {
+    [self.plateNumberLoadingView startAnimating];
+  } else {
+    [self.plateNumberLoadingView stopAnimating];
+    self.plateNumberView.text = self.viewModel.plateNumber;
+  }
+}
+
+- (void)viewModelDidChangeRecognizingState:(RVFeedbackViewModel *)viewModel
+{
+  [self configureViewsForRecognitionState];
 }
 
 - (void)viewModel:(RVFeedbackViewModel *)viewModel didReceiveError:(NSError *)error

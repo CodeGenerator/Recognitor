@@ -11,16 +11,32 @@
 
 @protocol RVSendActionViewModelDelegate;
 
+typedef NS_ENUM(NSUInteger, RVPlateViewState)
+{
+  RVPlateViewStateTextAvailable = 0,
+  RVPlateViewStateProcessing,
+  RVPlateViewStateError
+};
+
 
 @interface RVSendActionViewModel : NSObject
 
 @property (nonatomic, weak) UIViewController<RVSendActionViewModelDelegate>* delegate;
 
-@property (nonatomic, strong, readonly) UIImage *image;
+- (instancetype)initWithOriginalImageData:(NSData *)imageData plates:(NSArray *)plates;
 
-- (instancetype)initWithImageData:(NSData *)imageData;
+- (void)selectOptionAtIndex:(NSUInteger)index;
 
-- (void)sendAction;
+- (RVPlateViewState)plateViewStateAtIndex:(NSUInteger)index;
+
+- (NSString *)plateTextAtIndex:(NSUInteger)index;
+
+- (UIImage *)plateImageAtIndex:(NSUInteger)index;
+
+- (NSUInteger)numberOfPlates;
+
+- (void)didPressCancel;
+
 
 @end
 
@@ -29,11 +45,7 @@
 
 @required
 
-- (void)viewModelDidPrepareImage:(RVSendActionViewModel *)viewModel;
-
-- (void)viewModelDidStartUploading:(RVSendActionViewModel *)viewModel;
-
-- (void)viewModelDidFinishUploading:(RVSendActionViewModel *)viewModel;
+- (void)viewModel:(RVSendActionViewModel *)viewModel didChangePlateStateAtIndex:(NSUInteger)index;
 
 - (void)viewModel:(RVSendActionViewModel *)viewModel didReceiveError:(NSError *)error;
 

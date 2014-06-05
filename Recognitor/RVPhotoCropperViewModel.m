@@ -7,6 +7,9 @@
 //
 
 #import "RVPhotoCropperViewModel.h"
+#import "RVFeedbackViewController.h"
+#import "RVFeedbackViewModel.h"
+#import "RVPlateNumber.h"
 
 @interface RVPhotoCropperViewModel ()
 
@@ -67,12 +70,23 @@
     UIImage *croppedImage = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
     
-    if (self.completion != nil) {
-      dispatch_async(dispatch_get_main_queue(), ^{
+    dispatch_async(dispatch_get_main_queue(), ^{
+      if (self.completion != nil) {
         self.completion(croppedImage);
-      });
-    }
+      }
+      
+      RVPlateNumber *plateObject = [[RVPlateNumber alloc] initWithImage:croppedImage];
+      [plateObject recognize];
+      [self presentFeedbackViewControllerWithPlateObject:plateObject];
+    });
   });
+  }
+
+- (void)presentFeedbackViewControllerWithPlateObject:(RVPlateNumber *)plateObject
+{
+  RVFeedbackViewModel *viewModel = [[RVFeedbackViewModel alloc] initWithPlateObject:plateObject];
+  RVFeedbackViewController * viewController = [[RVFeedbackViewController alloc] initWithViewModel:viewModel];
+  [self.delegate.navigationController pushViewController:viewController animated:YES];
 }
 
 @end

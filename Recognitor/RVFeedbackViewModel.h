@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 
 
+@class RVPlateNumber;
 @protocol RVFeedbackModelDelegate;
 
 
@@ -17,11 +18,12 @@
 @property (nonatomic, weak) id<RVFeedbackModelDelegate> delegate;
 
 @property (nonatomic, strong, readonly) UIImage *image;
-@property (nonatomic, copy, readonly) NSString *predictedNumber;
+@property (nonatomic, copy, readonly) NSString *plateNumber;
 @property (nonatomic, assign, readonly) BOOL statisticsIsAvailable;
 @property (nonatomic, assign, readonly) NSUInteger blameCounter;
+@property (nonatomic, assign, readonly) BOOL recognizing;
 
-- (instancetype)initWithImage:(UIImage *)image predictedNumber:(NSString *)predictedNumber;
+- (instancetype)initWithPlateObject:(RVPlateNumber *)plateObject;
 
 - (void)swearActionWithPlateNumber:(NSString *)plateNumber;
 
@@ -35,6 +37,8 @@
 - (void)viewModelDidStartSwearingProcess:(RVFeedbackViewModel *)viewModel;
 
 - (void)viewModelDidFinishSwearingProcess:(RVFeedbackViewModel *)viewModel;
+
+- (void)viewModelDidChangeRecognizingState:(RVFeedbackViewModel *)viewModel;
 
 - (void)viewModel:(RVFeedbackViewModel *)viewModel didReceiveError:(NSError *)error;
 

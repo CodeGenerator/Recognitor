@@ -8,12 +8,15 @@
 
 #import "RVSendActionViewController.h"
 #import "RVSendActionViewModel.h"
+#import "RVPlateTableViewCell.h"
 
-@interface RVSendActionViewController () <RVSendActionViewModelDelegate>
+const CGFloat kCellHeight = 50.0f;
+
+
+@interface RVSendActionViewController () <RVSendActionViewModelDelegate, UITableViewDataSource, UITableViewDelegate>
 
 @property (nonatomic, strong) RVSendActionViewModel *viewModel;
-@property (nonatomic, strong) UIImageView *sendPreviewView;
-@property (nonatomic, strong) UIActivityIndicatorView *sendingIndicator;
+@property (nonatomic, strong) UITableView *tableView;
 
 @end
 
@@ -34,16 +37,10 @@
     UIBarButtonItem *leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Отмена"
                                                                           style:UIBarButtonItemStylePlain
                                                                          target:self
-                                                                         action:@selector(cancelSending)];
+                                                                         action:@selector(cancelSelection)];
     self.navigationItem.leftBarButtonItem = leftBarButtonItem;
-    
-    UIBarButtonItem *rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Отправить"
-                                                                           style:UIBarButtonItemStylePlain
-                                                                          target:self
-                                                                          action:@selector(send)];
-    rightBarButtonItem.enabled = NO;
-    self.navigationItem.rightBarButtonItem = rightBarButtonItem;
-    self.navigationItem.title = @"Отправка";
+
+    self.navigationItem.title = @"Выберите номер";
   }
   
   return self;
@@ -56,69 +53,31 @@
   self.view.backgroundColor = [UIColor whiteColor];
   self.view.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
   
-  self.sendPreviewView = [UIImageView new];
-  self.sendPreviewView.clipsToBounds = YES;
-  self.sendPreviewView.contentMode = UIViewContentModeScaleAspectFill;
-  self.sendPreviewView.alpha = 0.0f;
-  self.sendPreviewView.layer.borderColor = [UIColor blackColor].CGColor;
-  self.sendPreviewView.layer.borderWidth = 0.5f;
+  self.tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStylePlain];
+  self.tableView.separatorInset = UIEdgeInsetsZero;
+  self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+  self.tableView.delegate = self;
+  self.tableView.dataSource = self;
   
-  self.sendPreviewView.autoresizingMask = (UIViewAutoresizingFlexibleLeftMargin |
-                                                    UIViewAutoresizingFlexibleRightMargin);
-  
-  self.sendingIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
-  [self.sendingIndicator sizeToFit];
-  [self.sendPreviewView addSubview:self.sendingIndicator];
-  
-  [self.view addSubview:self.sendPreviewView];
+  [self.view addSubview:self.tableView];
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
   [super viewWillAppear:animated];
   self.viewModel.delegate = self;
-  if (self.viewModel.image != nil && self.sendPreviewView.image == nil) {
-    [self presentPreviewForSend:self.viewModel.image];
-  }
-}
-
-- (void)presentPreviewForSend:(UIImage *)image
-{
-  const CGFloat kSideMargin = 70.0f;
-  const CGFloat kTopMargin = 20.0f;
-  
-  self.sendPreviewView.image = self.viewModel.image;
-  
-  CGRect imageFrame = CGRectZero;
-  imageFrame.origin = CGPointMake(kSideMargin, kTopMargin);
-  imageFrame.size.width = self.view.bounds.size.width - 2 * kSideMargin;
-  imageFrame.size.height = imageFrame.size.width * image.size.height / image.size.width;
-  
-  self.sendPreviewView.frame = CGRectIntegral(imageFrame);
-  self.sendingIndicator.center = CGPointMake(self.sendPreviewView.bounds.size.width / 2,
-                                             self.sendPreviewView.bounds.size.height / 2);
-  [UIView animateWithDuration:0.5 animations:^{
-    self.sendPreviewView.alpha = 1.0f;
-  } completion:^(BOOL finished) {
-    self.navigationItem.rightBarButtonItem.enabled = YES;
-  }];
-  
-}
-
-- (void)cancelSending
-{
-  [self dismissViewControllerAnimated:YES completion:nil];
-}
-
-- (void)send
-{
-  [self.viewModel sendAction];
+  [self.tableView reloadData];
 }
 
 - (void)viewDidDisappear:(BOOL)animated
 {
   [super viewDidDisappear:animated];
   self.viewModel.delegate = nil;
+}
+
+- (void)cancelSelection
+{
+  [self.viewModel didPressCancel];
 }
 
 - (NSUInteger)supportedInterfaceOrientations
@@ -131,36 +90,69 @@
   return UIInterfaceOrientationPortrait;
 }
 
-- (void)viewModelDidPrepareImage:(RVSendActionViewModel *)viewModel
-{
-  [self presentPreviewForSend:self.viewModel.image];
-}
-
-- (void)viewModelDidStartUploading:(RVSendActionViewModel *)viewModel
-{
-  [self.sendingIndicator startAnimating];
-  self.navigationItem.leftBarButtonItem.enabled = NO;
-  self.navigationItem.rightBarButtonItem.enabled = NO;
-}
-
-- (void)viewModelDidFinishUploading:(RVSendActionViewModel *)viewModel
-{
-  [self.sendingIndicator stopAnimating];
-  self.navigationItem.leftBarButtonItem.enabled = YES;
-  self.navigationItem.rightBarButtonItem.enabled = YES;
-}
+#pragma mark - RVSendActionViewModelDelegate implementation
 
 - (void)viewModel:(RVSendActionViewModel *)viewModel didReceiveError:(NSError *)error
 {
-  [self.sendingIndicator stopAnimating];
-  self.navigationItem.leftBarButtonItem.enabled = YES;
-  self.navigationItem.rightBarButtonItem.enabled = YES;
   UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Ошибка"
                                                       message:error.localizedDescription
                                                      delegate:nil
                                             cancelButtonTitle:@"OK"
                                             otherButtonTitles: nil];
   [alertView show];
+}
+
+- (void)viewModel:(RVSendActionViewModel *)viewModel didChangePlateStateAtIndex:(NSUInteger)index
+{
+  [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:index inSection:0]]
+                        withRowAnimation:UITableViewRowAnimationNone];
+}
+
+- (void)configureCell:(RVPlateTableViewCell *)cell atIndex:(NSUInteger)index
+{
+  if (index == [self.viewModel numberOfPlates]) {
+    cell.withImage = NO;
+    cell.loading = NO;
+    cell.plateText = @"Выделить номер вручную";
+    return;
+  }
+  
+  cell.withImage = YES;
+  cell.plateImage = [self.viewModel plateImageAtIndex:index];
+  cell.plateText = [self.viewModel plateTextAtIndex:index];
+  RVPlateViewState plateViewState = [self.viewModel plateViewStateAtIndex:index];
+  cell.loading = plateViewState == RVPlateViewStateProcessing;
+}
+
+#pragma mark - UITableView delegates implementation
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+  return [self.viewModel numberOfPlates] + 1;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+  static NSString * const kResusableIdentifier = @"PlateCell";
+  RVPlateTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kResusableIdentifier];
+  if (cell == nil) {
+    cell = [[RVPlateTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:kResusableIdentifier];
+  }
+  
+  [self configureCell:cell atIndex:[indexPath row]];
+  
+  return cell;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+  return kCellHeight;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+  [tableView deselectRowAtIndexPath:indexPath animated:NO];
+  [self.viewModel selectOptionAtIndex:[indexPath row]];
 }
 
 @end

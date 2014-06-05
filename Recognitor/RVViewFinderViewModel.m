@@ -12,6 +12,7 @@
 #import "RVSendActionViewModel.h"
 #import "RVSendActionViewController.h"
 #import "RVPlateNumberExtractor.h"
+#import "RVPlateNumber.h"
 
 @interface RVViewFinderViewModel ()
 
@@ -129,6 +130,11 @@
   });
 }
 
+//- (UIImageOrientation)currentImageOrientationForDeviceOrientation:(UIDeviceOrientation)deviceOrientation
+//{
+//  switch
+//}
+
 - (AVCaptureVideoOrientation)videoOrientationForDeviceOrientation:(UIDeviceOrientation)deviceOrientation
 {
   switch (deviceOrientation) {
@@ -157,18 +163,24 @@
       NSData *jpegData = [AVCaptureStillImageOutput jpegStillImageNSDataRepresentation:imageDataSampleBuffer];
       UIImage *image = [UIImage imageWithData:jpegData];
       [RVPlateNumberExtractor extractFromImage:image completion:^(NSArray *plateImages) {
-        
-        if ([plateImages count] > 0) {
-          [self presentSendActionControllerWithImageData:UIImageJPEGRepresentation(plateImages[0], 1.0)];
-        }
+        [self presentSendActionControllerWithOriginalImageData:jpegData platesImages:plateImages];
       }];
     }
   }];
 }
 
-- (void)presentSendActionControllerWithImageData:(NSData *)imageData
+- (void)presentSendActionControllerWithOriginalImageData:(NSData *)originalImageData
+                                            platesImages:(NSArray *)platesImages
 {
-  RVSendActionViewModel *viewModel = [[RVSendActionViewModel alloc] initWithImageData:imageData];
+  NSMutableArray *plateObjects = [NSMutableArray arrayWithCapacity:[platesImages count]];
+  for (UIImage *plateImage in platesImages) {
+    RVPlateNumber *plateObject = [[RVPlateNumber alloc] initWithImage:plateImage];
+    [plateObject recognize];
+    [plateObjects addObject:plateObject];
+  }
+  
+  RVSendActionViewModel *viewModel = [[RVSendActionViewModel alloc] initWithOriginalImageData:originalImageData
+                                                                                       plates:plateObjects];
   RVSendActionViewController *viewController = [[RVSendActionViewController alloc] initWithViewModel:viewModel];
   UINavigationController *navigationVC = [[UINavigationController alloc] initWithRootViewController:viewController];
   navigationVC.navigationBar.translucent = NO;
