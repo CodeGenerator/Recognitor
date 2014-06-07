@@ -79,12 +79,16 @@ typedef NS_ENUM(NSUInteger, RVCornerType)
   if (self.viewModel.image != nil) {
     [self showImageWithSelectionFrameAnimated:NO];
   }
+  
+  self.navigationController.interactivePopGestureRecognizer.enabled = NO;
 }
 
 - (void)viewDidDisappear:(BOOL)animated
 {
   [super viewDidDisappear:animated];
   self.viewModel.delegate = nil;
+  
+  self.navigationController.interactivePopGestureRecognizer.enabled = YES;
 }
 
 - (UIStatusBarStyle)preferredStatusBarStyle

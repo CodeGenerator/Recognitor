@@ -164,8 +164,9 @@ static NSString *const kBlamePattern = @"Обозвали раз: %u";
 - (void)configurePlateTextField
 {
   const CGFloat kPlateLabelTopMargin = 20.0f;
-  const CGFloat kPlateLabelLeftMargin = 40.0f;
+  const CGFloat kPlateLabelLeftMargin = 30.0f;
   const CGFloat kPlateTextFieldLeftGap = 20.0f;
+  const CGFloat kPlateTextFieldRightMargin = 30.0f;
   
   
   self.plateTextLabel = [UILabel new];
@@ -187,7 +188,7 @@ static NSString *const kBlamePattern = @"Обозвали раз: %u";
                                     kPlateTextFieldLeftGap);
   self.plateNumberView.frame = CGRectMake(plateNumberViewOffsetX,
                                           self.plateTextLabel.center.y - self.plateNumberView.bounds.size.height / 2,
-                                          self.previewView.frame.origin.x + self.previewView.bounds.size.width -
+                                          self.view.bounds.size.width - kPlateTextFieldRightMargin -
                                           plateNumberViewOffsetX,
                                           self.plateNumberView.bounds.size.height);
   
