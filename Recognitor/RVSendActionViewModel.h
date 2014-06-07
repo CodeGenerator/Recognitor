@@ -23,7 +23,7 @@ typedef NS_ENUM(NSUInteger, RVPlateViewState)
 
 @property (nonatomic, weak) UIViewController<RVSendActionViewModelDelegate>* delegate;
 
-- (instancetype)initWithOriginalImageData:(NSData *)imageData plates:(NSArray *)plates;
+- (instancetype)initWithOriginalImage:(UIImage *)originalImage plates:(NSArray *)plates;
 
 - (void)selectOptionAtIndex:(NSUInteger)index;
 

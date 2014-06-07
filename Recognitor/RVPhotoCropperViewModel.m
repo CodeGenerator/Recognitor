@@ -20,18 +20,13 @@
 
 @implementation RVPhotoCropperViewModel
 
-- (instancetype)initWithImageData:(NSData *)imageData
+- (instancetype)initWithOriginalImage:(UIImage *)originalImage
 {
-  NSParameterAssert(imageData != nil);
+  NSParameterAssert(originalImage != nil);
   
   self = [super init];
   if (self) {
-    [self decodedImageFromData:imageData completion:^(UIImage *decodedImage) {
-      dispatch_async(dispatch_get_main_queue(), ^{
-        self.image = decodedImage;
-        [self.delegate viewModelDidPrepareImage:self];
-      });
-    }];
+    _image = originalImage;
   }
   
   return self;
@@ -39,7 +34,7 @@
 
 - (instancetype)init
 {
-  return [self initWithImageData:nil];
+  return [self initWithOriginalImage:nil];
 }
 
 - (void)decodedImageFromData:(NSData *)imageData completion:(void(^)(UIImage *decodedImage))completion

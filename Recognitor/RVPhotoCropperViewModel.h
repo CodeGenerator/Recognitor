@@ -22,7 +22,7 @@ typedef void(^RVPhotoCropperViewModelCompletionBlock)(UIImage *selectedImage);
 
 @property (nonatomic, strong, readonly) UIImage *image;
 
-- (instancetype)initWithImageData:(NSData *)imageData;
+- (instancetype)initWithOriginalImage:(UIImage *)originalImage;
 
 - (void)selectedRectForCrop:(CGRect)rect;
 
@@ -32,7 +32,5 @@ typedef void(^RVPhotoCropperViewModelCompletionBlock)(UIImage *selectedImage);
 @protocol RVPhotoCropperViewModelDelegate <NSObject>
 
 @required
-
-- (void)viewModelDidPrepareImage:(RVPhotoCropperViewModel *)viewModel;
 
 @end

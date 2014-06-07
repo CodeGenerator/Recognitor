@@ -22,18 +22,18 @@ static NSString * const kRecognitionStateKeyPath = @"recognitionState";
 
 @interface RVSendActionViewModel ()
 
-@property (nonatomic, strong) NSData *imageData;
+@property (nonatomic, strong) UIImage *originalImage;
 @property (nonatomic, strong) NSArray *plateObjects;
 
 @end
 
 @implementation RVSendActionViewModel
 
-- (instancetype)initWithOriginalImageData:(NSData *)imageData plates:(NSArray *)plates
+- (instancetype)initWithOriginalImage:(UIImage *)originalImage plates:(NSArray *)plates
 {
   self = [super init];
   if (self) {
-    _imageData = imageData;
+    _originalImage = originalImage;
     _plateObjects = plates;
     
     NSUInteger platesCount = [plates count];
@@ -120,7 +120,7 @@ static NSString * const kRecognitionStateKeyPath = @"recognitionState";
 
 - (void)presentPhotoCropper
 {
-  RVPhotoCropperViewModel *viewModel = [[RVPhotoCropperViewModel alloc] initWithImageData:self.imageData];
+  RVPhotoCropperViewModel *viewModel = [[RVPhotoCropperViewModel alloc] initWithOriginalImage:self.originalImage];
   viewModel.completion = ^(UIImage *croppedImage) {
     [self cancelRecognitionForNumbers:self.plateObjects];
   };

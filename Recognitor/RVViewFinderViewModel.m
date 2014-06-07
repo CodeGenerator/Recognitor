@@ -82,7 +82,7 @@
     [self.captureSession addInput:videoDeviceInput];
     
     self.stillImageOutput = [AVCaptureStillImageOutput new];
-    self.stillImageOutput.outputSettings = @{AVVideoCodecKey : AVVideoCodecJPEG};
+    self.stillImageOutput.outputSettings = @{(id)kCVPixelBufferPixelFormatTypeKey : @(kCVPixelFormatType_32BGRA)};
     if (![self.captureSession canAddOutput:self.stillImageOutput]) {
       NSLog(@"Can't add still image output");
       self.captureSession = nil;
@@ -130,11 +130,6 @@
   });
 }
 
-//- (UIImageOrientation)currentImageOrientationForDeviceOrientation:(UIDeviceOrientation)deviceOrientation
-//{
-//  switch
-//}
-
 - (AVCaptureVideoOrientation)videoOrientationForDeviceOrientation:(UIDeviceOrientation)deviceOrientation
 {
   switch (deviceOrientation) {
@@ -153,24 +148,73 @@
   }
 }
 
+- (UIImageOrientation)imageOrientationForDeviceOrientation:(UIDeviceOrientation)deviceOrientation
+{
+  switch (deviceOrientation) {
+    case UIDeviceOrientationPortraitUpsideDown:
+      return UIImageOrientationLeft;
+    case UIDeviceOrientationLandscapeLeft:
+      return UIImageOrientationUp;
+    case UIDeviceOrientationLandscapeRight:
+      return UIImageOrientationDown;
+      
+    case UIDeviceOrientationPortrait:
+    default:
+      return UIImageOrientationRight;
+  }
+}
+
 - (void)captureImage
 {
   AVCaptureConnection *stillImageConnection = [self.stillImageOutput connectionWithMediaType:AVMediaTypeVideo];
-  stillImageConnection.videoOrientation = [self videoOrientationForDeviceOrientation:[UIDevice currentDevice].orientation];
+  UIDeviceOrientation deviceOrientation = [UIDevice currentDevice].orientation;
+  if (stillImageConnection.supportsVideoOrientation) {
+    stillImageConnection.videoOrientation = [self videoOrientationForDeviceOrientation:deviceOrientation];
+  }
+  
   [self.stillImageOutput captureStillImageAsynchronouslyFromConnection:stillImageConnection completionHandler:^(CMSampleBufferRef imageDataSampleBuffer, NSError *error) {
     if (error == nil) {
-      // TODO: optimize! just read values from buffer (use another pixel format)
-      NSData *jpegData = [AVCaptureStillImageOutput jpegStillImageNSDataRepresentation:imageDataSampleBuffer];
-      UIImage *image = [UIImage imageWithData:jpegData];
+      CVPixelBufferRef pixelBuffer = CMSampleBufferGetImageBuffer(imageDataSampleBuffer);
+      NSAssert(pixelBuffer != nil, @"Can't get image buffer");
+      if (CVPixelBufferLockBaseAddress(pixelBuffer, 0) != kCVReturnSuccess)
+      {
+        NSAssert(nil, @"Can't lock image buffer");
+        return;
+      }
+      
+      const NSUInteger kBitPerComponent = 8;
+      CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
+      
+      CGContextRef context = CGBitmapContextCreate(CVPixelBufferGetBaseAddress(pixelBuffer),
+                                                   CVPixelBufferGetWidth(pixelBuffer),
+                                                   CVPixelBufferGetHeight(pixelBuffer),
+                                                   kBitPerComponent,
+                                                   CVPixelBufferGetBytesPerRow(pixelBuffer),
+                                                   colorSpace,
+                                                   kCGBitmapByteOrder32Little | kCGImageAlphaPremultipliedFirst);
+      CGColorSpaceRelease(colorSpace);
+      
+      CGImageRef cgImage = CGBitmapContextCreateImage(context);
+      CGContextRelease(context);
+      CVPixelBufferUnlockBaseAddress(pixelBuffer, 0);
+      
+      if (cgImage == nil) {
+        NSAssert(nil, @"Can't create image");
+        return;
+      }
+      
+      UIImageOrientation imageOrientaiton = [self imageOrientationForDeviceOrientation:deviceOrientation];
+      UIImage *image = [UIImage imageWithCGImage:cgImage scale:0.0f orientation:imageOrientaiton];
+      CGImageRelease(cgImage);
       [RVPlateNumberExtractor extractFromImage:image completion:^(NSArray *plateImages) {
-        [self presentSendActionControllerWithOriginalImageData:jpegData platesImages:plateImages];
+        [self presentSendActionControllerWithOriginalImage:image platesImages:plateImages];
       }];
     }
   }];
 }
 
-- (void)presentSendActionControllerWithOriginalImageData:(NSData *)originalImageData
-                                            platesImages:(NSArray *)platesImages
+- (void)presentSendActionControllerWithOriginalImage:(UIImage *)originalImage
+                                        platesImages:(NSArray *)platesImages
 {
   NSMutableArray *plateObjects = [NSMutableArray arrayWithCapacity:[platesImages count]];
   for (UIImage *plateImage in platesImages) {
@@ -179,8 +223,8 @@
     [plateObjects addObject:plateObject];
   }
   
-  RVSendActionViewModel *viewModel = [[RVSendActionViewModel alloc] initWithOriginalImageData:originalImageData
-                                                                                       plates:plateObjects];
+  RVSendActionViewModel *viewModel = [[RVSendActionViewModel alloc] initWithOriginalImage:originalImage
+                                                                                   plates:plateObjects];
   RVSendActionViewController *viewController = [[RVSendActionViewController alloc] initWithViewModel:viewModel];
   UINavigationController *navigationVC = [[UINavigationController alloc] initWithRootViewController:viewController];
   navigationVC.navigationBar.translucent = NO;

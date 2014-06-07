@@ -277,10 +277,5 @@ typedef NS_ENUM(NSUInteger, RVCornerType)
 
 #pragma mark - RVPhotoCropperViewModelDelegate implementation
 
-- (void)viewModelDidPrepareImage:(RVPhotoCropperViewModel *)viewModel
-{
-  [self showImageWithSelectionFrameAnimated:YES];
-}
-
 
 @end
