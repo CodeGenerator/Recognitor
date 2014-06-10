@@ -264,9 +264,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		25A01627192E8AE100A9486C /* Recognitor */ = {
+		25A01627192E8AE100A9486C /* FindAHelmman */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 25A01654192E8AE100A9486C /* Build configuration list for PBXNativeTarget "Recognitor" */;
+			buildConfigurationList = 25A01654192E8AE100A9486C /* Build configuration list for PBXNativeTarget "FindAHelmman" */;
 			buildPhases = (
 				25A01624192E8AE100A9486C /* Sources */,
 				25A01625192E8AE100A9486C /* Frameworks */,
@@ -276,7 +276,7 @@
 			);
 			dependencies = (
 			);
-			name = Recognitor;
+			name = FindAHelmman;
 			productName = Recognitor;
 			productReference = 25A01628192E8AE100A9486C /* Recognitor.app */;
 			productType = "com.apple.product-type.application";
@@ -309,6 +309,9 @@
 				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = NeoSmartVision;
 				TargetAttributes = {
+					25A01627192E8AE100A9486C = {
+						DevelopmentTeam = Y2HJ877WE4;
+					};
 					25A01642192E8AE100A9486C = {
 						TestTargetID = 25A01627192E8AE100A9486C;
 					};
@@ -326,7 +329,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				25A01627192E8AE100A9486C /* Recognitor */,
+				25A01627192E8AE100A9486C /* FindAHelmman */,
 				25A01642192E8AE100A9486C /* RecognitorTests */,
 			);
 		};
@@ -390,7 +393,7 @@
 /* Begin PBXTargetDependency section */
 		25A01649192E8AE100A9486C /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 25A01627192E8AE100A9486C /* Recognitor */;
+			target = 25A01627192E8AE100A9486C /* FindAHelmman */;
 			targetProxy = 25A01648192E8AE100A9486C /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -490,6 +493,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Recognitor",
@@ -497,7 +501,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Recognitor/Recognitor-Prefix.pch";
 				INFOPLIST_FILE = "Recognitor/Recognitor-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
@@ -509,6 +513,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Mikhail Korobkin (Y2HJ877WE4)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Recognitor",
@@ -516,7 +521,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Recognitor/Recognitor-Prefix.pch";
 				INFOPLIST_FILE = "Recognitor/Recognitor-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
@@ -575,7 +580,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		25A01654192E8AE100A9486C /* Build configuration list for PBXNativeTarget "Recognitor" */ = {
+		25A01654192E8AE100A9486C /* Build configuration list for PBXNativeTarget "FindAHelmman" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				25A01655192E8AE100A9486C /* Debug */,

@@ -16,7 +16,7 @@
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "25A01627192E8AE100A9486C"
                BuildableName = "Recognitor.app"
-               BlueprintName = "Recognitor"
+               BlueprintName = "FindAHelmman"
                ReferencedContainer = "container:Recognitor.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -44,7 +44,7 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "25A01627192E8AE100A9486C"
             BuildableName = "Recognitor.app"
-            BlueprintName = "Recognitor"
+            BlueprintName = "FindAHelmman"
             ReferencedContainer = "container:Recognitor.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -63,7 +63,7 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "25A01627192E8AE100A9486C"
             BuildableName = "Recognitor.app"
-            BlueprintName = "Recognitor"
+            BlueprintName = "FindAHelmman"
             ReferencedContainer = "container:Recognitor.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
@@ -81,7 +81,7 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "25A01627192E8AE100A9486C"
             BuildableName = "Recognitor.app"
-            BlueprintName = "Recognitor"
+            BlueprintName = "FindAHelmman"
             ReferencedContainer = "container:Recognitor.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>

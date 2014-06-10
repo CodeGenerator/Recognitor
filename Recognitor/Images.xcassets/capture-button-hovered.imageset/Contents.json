@@ -6,9 +6,20 @@
       "filename" : "capture-button-hovered-2.png"
     },
     {
+      "resizing" : {
+        "mode" : "3-part-horizontal",
+        "center" : {
+          "mode" : "fill",
+          "width" : 103
+        },
+        "capInsets" : {
+          "right" : 24,
+          "left" : 3
+        }
+      },
       "idiom" : "universal",
-      "scale" : "2x",
-      "filename" : "capture-button-hovered-2@2x.png"
+      "filename" : "capture-button-hovered-2@2x.png",
+      "scale" : "2x"
     }
   ],
   "info" : {
