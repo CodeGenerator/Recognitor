@@ -70,7 +70,7 @@
 		254A9EEA1930E47C0064938F /* RVBackend.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RVBackend.m; sourceTree = "<group>"; };
 		256CCAD11937CC6100D9C6B7 /* RVPlateNumber.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RVPlateNumber.h; sourceTree = "<group>"; };
 		256CCAD21937CC6100D9C6B7 /* RVPlateNumber.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RVPlateNumber.m; sourceTree = "<group>"; };
-		25A01628192E8AE100A9486C /* Recognitor.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Recognitor.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		25A01628192E8AE100A9486C /* FindAHelmman.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FindAHelmman.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		25A0162B192E8AE100A9486C /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		25A0162D192E8AE100A9486C /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		25A0162F192E8AE100A9486C /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -183,7 +183,7 @@
 		25A01629192E8AE100A9486C /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				25A01628192E8AE100A9486C /* Recognitor.app */,
+				25A01628192E8AE100A9486C /* FindAHelmman.app */,
 				25A01643192E8AE100A9486C /* RecognitorTests.xctest */,
 			);
 			name = Products;
@@ -211,10 +211,10 @@
 				25A0163B192E8AE100A9486C /* RVAppDelegate.m */,
 				25A01660192FC9CB00A9486C /* RVViewFinderViewController.h */,
 				25A01661192FC9CB00A9486C /* RVViewFinderViewController.m */,
-				25496207193928F00008ED3A /* RVPlateTableViewCell.h */,
-				25496208193928F00008ED3A /* RVPlateTableViewCell.m */,
 				25A01663192FCA5000A9486C /* RVViewFinderViewModel.h */,
 				25A01664192FCA5000A9486C /* RVViewFinderViewModel.m */,
+				25496207193928F00008ED3A /* RVPlateTableViewCell.h */,
+				25496208193928F00008ED3A /* RVPlateTableViewCell.m */,
 				25A0166A192FF4ED00A9486C /* RVSendActionViewController.h */,
 				25A0166B192FF4ED00A9486C /* RVSendActionViewController.m */,
 				25A0166D192FF58400A9486C /* RVSendActionViewModel.h */,
@@ -278,7 +278,7 @@
 			);
 			name = FindAHelmman;
 			productName = Recognitor;
-			productReference = 25A01628192E8AE100A9486C /* Recognitor.app */;
+			productReference = 25A01628192E8AE100A9486C /* FindAHelmman.app */;
 			productType = "com.apple.product-type.application";
 		};
 		25A01642192E8AE100A9486C /* RecognitorTests */ = {
@@ -309,9 +309,6 @@
 				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = NeoSmartVision;
 				TargetAttributes = {
-					25A01627192E8AE100A9486C = {
-						DevelopmentTeam = Y2HJ877WE4;
-					};
 					25A01642192E8AE100A9486C = {
 						TestTargetID = 25A01627192E8AE100A9486C;
 					};
@@ -513,7 +510,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Mikhail Korobkin (Y2HJ877WE4)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Recognitor",

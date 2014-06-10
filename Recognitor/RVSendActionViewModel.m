@@ -127,6 +127,11 @@ static NSString * const kRecognitionStateKeyPath = @"recognitionState";
   
   RVPhotoCropperViewController *viewController = [[RVPhotoCropperViewController alloc] initWithViewModel:viewModel];
 
+  UIBarButtonItem *backButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Назад"
+                                                                     style:UIBarButtonItemStylePlain
+                                                                    target:nil
+                                                                    action:nil];
+  self.delegate.navigationItem.backBarButtonItem = backButtonItem;
   [self.delegate.navigationController pushViewController:viewController animated:YES];
 }
 
