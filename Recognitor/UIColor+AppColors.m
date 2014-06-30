@@ -3,7 +3,7 @@
 //  Recognitor
 //
 //  Created by Mikhail Korobkin on 05/06/14.
-//  Copyright (c) 2014 NeoSmartVision. All rights reserved.
+//  Copyright (c) 2014 Recognitor. All rights reserved.
 //
 
 #import "UIColor+AppColors.h"

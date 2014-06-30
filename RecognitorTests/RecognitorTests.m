@@ -3,7 +3,7 @@
 //  RecognitorTests
 //
 //  Created by Mikhail Korobkin on 22/05/14.
-//  Copyright (c) 2014 NeoSmartVision. All rights reserved.
+//  Copyright (c) 2014 Recognitor. All rights reserved.
 //
 
 #import <XCTest/XCTest.h>
