@@ -1,12 +1,12 @@
 //
-//  RVSendActionViewModel.m
+//  RVPlateSelectionViewModel.m
 //  Recognitor
 //
 //  Created by Mikhail Korobkin on 24/05/14.
 //  Copyright (c) 2014 Recognitor. All rights reserved.
 //
 
-#import "RVSendActionViewModel.h"
+#import "RVPlateSelectionViewModel.h"
 
 #import "RVFeedbackViewController.h"
 #import "RVFeedbackViewModel.h"
@@ -20,14 +20,14 @@
 static NSString * const kRecognitionStateKeyPath = @"recognitionState";
 
 
-@interface RVSendActionViewModel ()
+@interface RVPlateSelectionViewModel ()
 
 @property (nonatomic, strong) UIImage *originalImage;
 @property (nonatomic, strong) NSArray *plateObjects;
 
 @end
 
-@implementation RVSendActionViewModel
+@implementation RVPlateSelectionViewModel
 
 - (instancetype)initWithOriginalImage:(UIImage *)originalImage plates:(NSArray *)plates
 {

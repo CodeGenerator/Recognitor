@@ -9,8 +9,8 @@
 #import <AVFoundation/AVFoundation.h>
 #import "RVViewFinderViewModel.h"
 
-#import "RVSendActionViewModel.h"
-#import "RVSendActionViewController.h"
+#import "RVPlateSelectionViewModel.h"
+#import "RVPlateSelectionViewController.h"
 #import "RVPlateNumberExtractor.h"
 #import "RVPlateNumber.h"
 
@@ -223,9 +223,9 @@
     [plateObjects addObject:plateObject];
   }
   
-  RVSendActionViewModel *viewModel = [[RVSendActionViewModel alloc] initWithOriginalImage:originalImage
+  RVPlateSelectionViewModel *viewModel = [[RVPlateSelectionViewModel alloc] initWithOriginalImage:originalImage
                                                                                    plates:plateObjects];
-  RVSendActionViewController *viewController = [[RVSendActionViewController alloc] initWithViewModel:viewModel];
+  RVPlateSelectionViewController *viewController = [[RVPlateSelectionViewController alloc] initWithViewModel:viewModel];
   UINavigationController *navigationVC = [[UINavigationController alloc] initWithRootViewController:viewController];
   navigationVC.navigationBar.translucent = NO;
   navigationVC.navigationBar.barTintColor = [UIColor darkBackgroundColor];

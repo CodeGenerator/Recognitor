@@ -34,8 +34,8 @@
 		25A01665192FCA5000A9486C /* RVViewFinderViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 25A01664192FCA5000A9486C /* RVViewFinderViewModel.m */; };
 		25A01667192FCEC900A9486C /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 25A01666192FCEC900A9486C /* AVFoundation.framework */; };
 		25A01669192FE11000A9486C /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 25A01668192FE11000A9486C /* QuartzCore.framework */; };
-		25A0166C192FF4ED00A9486C /* RVSendActionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 25A0166B192FF4ED00A9486C /* RVSendActionViewController.m */; };
-		25A0166F192FF58400A9486C /* RVSendActionViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 25A0166E192FF58400A9486C /* RVSendActionViewModel.m */; };
+		25A0166C192FF4ED00A9486C /* RVPlateSelectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 25A0166B192FF4ED00A9486C /* RVPlateSelectionViewController.m */; };
+		25A0166F192FF58400A9486C /* RVPlateSelectionViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 25A0166E192FF58400A9486C /* RVPlateSelectionViewModel.m */; };
 		25FE9D671940FD1800D531C9 /* UIColor+AppColors.m in Sources */ = {isa = PBXBuildFile; fileRef = 25FE9D661940FD1800D531C9 /* UIColor+AppColors.m */; };
 /* End PBXBuildFile section */
 
@@ -92,10 +92,10 @@
 		25A01664192FCA5000A9486C /* RVViewFinderViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RVViewFinderViewModel.m; sourceTree = "<group>"; };
 		25A01666192FCEC900A9486C /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		25A01668192FE11000A9486C /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
-		25A0166A192FF4ED00A9486C /* RVSendActionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RVSendActionViewController.h; sourceTree = "<group>"; };
-		25A0166B192FF4ED00A9486C /* RVSendActionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RVSendActionViewController.m; sourceTree = "<group>"; };
-		25A0166D192FF58400A9486C /* RVSendActionViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RVSendActionViewModel.h; sourceTree = "<group>"; };
-		25A0166E192FF58400A9486C /* RVSendActionViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RVSendActionViewModel.m; sourceTree = "<group>"; };
+		25A0166A192FF4ED00A9486C /* RVPlateSelectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RVPlateSelectionViewController.h; sourceTree = "<group>"; };
+		25A0166B192FF4ED00A9486C /* RVPlateSelectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RVPlateSelectionViewController.m; sourceTree = "<group>"; };
+		25A0166D192FF58400A9486C /* RVPlateSelectionViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RVPlateSelectionViewModel.h; sourceTree = "<group>"; };
+		25A0166E192FF58400A9486C /* RVPlateSelectionViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RVPlateSelectionViewModel.m; sourceTree = "<group>"; };
 		25FE9D651940FD1800D531C9 /* UIColor+AppColors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+AppColors.h"; sourceTree = "<group>"; };
 		25FE9D661940FD1800D531C9 /* UIColor+AppColors.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+AppColors.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -215,10 +215,10 @@
 				25A01664192FCA5000A9486C /* RVViewFinderViewModel.m */,
 				25496207193928F00008ED3A /* RVPlateTableViewCell.h */,
 				25496208193928F00008ED3A /* RVPlateTableViewCell.m */,
-				25A0166A192FF4ED00A9486C /* RVSendActionViewController.h */,
-				25A0166B192FF4ED00A9486C /* RVSendActionViewController.m */,
-				25A0166D192FF58400A9486C /* RVSendActionViewModel.h */,
-				25A0166E192FF58400A9486C /* RVSendActionViewModel.m */,
+				25A0166A192FF4ED00A9486C /* RVPlateSelectionViewController.h */,
+				25A0166B192FF4ED00A9486C /* RVPlateSelectionViewController.m */,
+				25A0166D192FF58400A9486C /* RVPlateSelectionViewModel.h */,
+				25A0166E192FF58400A9486C /* RVPlateSelectionViewModel.m */,
 				254A9EE31930E2EE0064938F /* RVFeedbackViewController.h */,
 				254A9EE41930E2EE0064938F /* RVFeedbackViewController.m */,
 				254A9EE61930E3130064938F /* RVFeedbackViewModel.h */,
@@ -368,12 +368,12 @@
 				25270D2E1933DA49002B4E78 /* RVPlateNumberExtractor.mm in Sources */,
 				254A9EEB1930E47C0064938F /* RVBackend.m in Sources */,
 				25FE9D671940FD1800D531C9 /* UIColor+AppColors.m in Sources */,
-				25A0166F192FF58400A9486C /* RVSendActionViewModel.m in Sources */,
+				25A0166F192FF58400A9486C /* RVPlateSelectionViewModel.m in Sources */,
 				25A01638192E8AE100A9486C /* main.m in Sources */,
 				25270D4B1936458E002B4E78 /* RVPhotoCropperViewModel.m in Sources */,
 				2549620D19393D840008ED3A /* RVFeedbackViewModel.m in Sources */,
 				25A01662192FC9CB00A9486C /* RVViewFinderViewController.m in Sources */,
-				25A0166C192FF4ED00A9486C /* RVSendActionViewController.m in Sources */,
+				25A0166C192FF4ED00A9486C /* RVPlateSelectionViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

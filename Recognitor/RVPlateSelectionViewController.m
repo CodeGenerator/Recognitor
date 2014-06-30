@@ -1,33 +1,33 @@
 //
-//  RVSendActionViewController.m
+//  RVPlateSelectionViewController.m
 //  Recognitor
 //
 //  Created by Mikhail Korobkin on 24/05/14.
 //  Copyright (c) 2014 Recognitor. All rights reserved.
 //
 
-#import "RVSendActionViewController.h"
-#import "RVSendActionViewModel.h"
+#import "RVPlateSelectionViewController.h"
+#import "RVPlateSelectionViewModel.h"
 #import "RVPlateTableViewCell.h"
 
 const CGFloat kCellHeight = 50.0f;
 
 
-@interface RVSendActionViewController () <RVSendActionViewModelDelegate, UITableViewDataSource, UITableViewDelegate>
+@interface RVPlateSelectionViewController () <RVSendActionViewModelDelegate, UITableViewDataSource, UITableViewDelegate>
 
-@property (nonatomic, strong) RVSendActionViewModel *viewModel;
+@property (nonatomic, strong) RVPlateSelectionViewModel *viewModel;
 @property (nonatomic, strong) UITableView *tableView;
 
 @end
 
-@implementation RVSendActionViewController
+@implementation RVPlateSelectionViewController
 
 - (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
   return [self initWithViewModel:nil];
 }
 
-- (instancetype)initWithViewModel:(RVSendActionViewModel *)viewModel
+- (instancetype)initWithViewModel:(RVPlateSelectionViewModel *)viewModel
 {
   NSParameterAssert(viewModel != nil);
   self = [super initWithNibName:nil bundle:nil];
@@ -93,7 +93,7 @@ const CGFloat kCellHeight = 50.0f;
 
 #pragma mark - RVSendActionViewModelDelegate implementation
 
-- (void)viewModel:(RVSendActionViewModel *)viewModel didReceiveError:(NSError *)error
+- (void)viewModel:(RVPlateSelectionViewModel *)viewModel didReceiveError:(NSError *)error
 {
   UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Ошибка"
                                                       message:error.localizedDescription
@@ -103,7 +103,7 @@ const CGFloat kCellHeight = 50.0f;
   [alertView show];
 }
 
-- (void)viewModel:(RVSendActionViewModel *)viewModel didChangePlateStateAtIndex:(NSUInteger)index
+- (void)viewModel:(RVPlateSelectionViewModel *)viewModel didChangePlateStateAtIndex:(NSUInteger)index
 {
   [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:index inSection:0]]
                         withRowAnimation:UITableViewRowAnimationNone];

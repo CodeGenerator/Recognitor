@@ -1,5 +1,5 @@
 //
-//  RVSendActionViewModel.h
+//  RVPlateSelectionViewModel.h
 //  Recognitor
 //
 //  Created by Mikhail Korobkin on 24/05/14.
@@ -19,7 +19,7 @@ typedef NS_ENUM(NSUInteger, RVPlateViewState)
 };
 
 
-@interface RVSendActionViewModel : NSObject
+@interface RVPlateSelectionViewModel : NSObject
 
 @property (nonatomic, weak) UIViewController<RVSendActionViewModelDelegate>* delegate;
 
@@ -45,8 +45,8 @@ typedef NS_ENUM(NSUInteger, RVPlateViewState)
 
 @required
 
-- (void)viewModel:(RVSendActionViewModel *)viewModel didChangePlateStateAtIndex:(NSUInteger)index;
+- (void)viewModel:(RVPlateSelectionViewModel *)viewModel didChangePlateStateAtIndex:(NSUInteger)index;
 
-- (void)viewModel:(RVSendActionViewModel *)viewModel didReceiveError:(NSError *)error;
+- (void)viewModel:(RVPlateSelectionViewModel *)viewModel didReceiveError:(NSError *)error;
 
 @end
